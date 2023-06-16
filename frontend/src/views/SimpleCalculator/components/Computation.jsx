@@ -13,6 +13,8 @@ import {
   MenuItem,
 } from "@mui/material"
 
+import PlantAnimation from "./PlantAnimation"
+
 const formZagospodarowaniaOptions = {
   "powierzchnie szczelne (nieprzepuszczalne)": 0,
   "powierzchnie półprzepuszczalne": 0.5,
@@ -154,6 +156,7 @@ const Computation = () => {
           <p className={styles.totalBafValue}>
             {calculateTotalBAF().toFixed(2)}
           </p>
+          <PlantAnimation></PlantAnimation>
         </div>
       </div>
     </div>

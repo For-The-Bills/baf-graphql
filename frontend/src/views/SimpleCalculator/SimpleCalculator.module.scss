@@ -1,0 +1,8 @@
+@import "../../assets/variables.scss";
+
+.simpleCalculatorContainer {
+  display: flex;
+  max-width: 1000px;
+  margin: auto;
+  flex-direction: column;
+}

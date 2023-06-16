@@ -2,10 +2,11 @@ import React, { Component, lazy, Suspense } from "react";
 import { connect } from "react-redux";
 import {
   Route,
-  Routes,
+  Switch,
   useLocation,
   useNavigate,
   useParams,
+  withRouter
 } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,11 +36,11 @@ class ViewManager extends Component {
           }
         >
           <ScrollToTop>
-            <Routes>
+            <Switch>
               <Route exact path="/" element={Home} />
               <Route exact path="/calculator" element={News} />
               <Route element={NotFound} />
-            </Routes>
+            </Switch>
           </ScrollToTop>
         </Suspense>
       </>
@@ -47,15 +48,5 @@ class ViewManager extends Component {
   }
 }
 
-function withRouter(Component) {
-  function ComponentWithRouterProp(props) {
-    let location = useLocation();
-    let navigate = useNavigate();
-    let params = useParams();
-    return <Component {...props} router={{ location, navigate, params }} />;
-  }
-
-  return ComponentWithRouterProp;
-}
 
 export default withRouter(connect()(ViewManager));

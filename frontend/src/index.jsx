@@ -75,7 +75,6 @@ export const history = createBrowserHistory()
 root.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
         <Router history={history}>
           <Navbar/>
           <div id="SXWrapper" className="content">
@@ -83,7 +82,6 @@ root.render(
             <Footer/>
           </div>
         </Router>
-      </PersistGate>
     </Provider>
   </ThemeProvider>
 )

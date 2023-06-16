@@ -28,5 +28,15 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    .totalBafLabel {
+      margin: 0;
+      margin-top: 1rem;
+    }
+
+    .totalBafValue {
+      font-weight: 900;
+      font-size: 24px;
+    }
   }
 }

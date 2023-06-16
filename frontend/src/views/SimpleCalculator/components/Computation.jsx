@@ -33,8 +33,7 @@ const formZagospodarowaniaOptions = {
 
 const Computation = () => {
   const [rows, setRows] = useState([{ nazwa: "", forma: "", powierzchnia: "" }])
-  const [totalArea, setTotalArea] = useState(0)
-  const [totalBaf, setTotalBaf] = useState(0)
+  const [bafFinalValue, setBafFinalValue] = useState(0)
 
   const handleAddRow = () => {
     setRows([...rows, { nazwa: "", forma: "", powierzchnia: "" }])
@@ -89,11 +88,22 @@ const Computation = () => {
     return totalArea
   }
 
-  const calculateBAFFinalValue = () => {}
+  const calculateBAFFinalValue = () => {
+    let totalArea = calculateTotalArea()
+    let totalBaf = calculateTotalBAF()
+
+    if (totalArea > 0 && totalBaf > 0) {
+      let result = totalBaf / totalArea
+      return Math.ceil(result * 100) / 100
+    } else {
+      return NaN
+    }
+  }
 
   useEffect(() => {
-    handleAddRow()
-  }, [])
+    const bafValue = calculateBAFFinalValue()
+    setBafFinalValue(bafValue)
+  }, [rows])
 
   return (
     <div className={styles.computationContainer}>
@@ -144,15 +154,15 @@ const Computation = () => {
                     value={row.powierzchnia}
                     onChange={(event) => handlePowierzchniaChange(event, index)}
                     fullWidth
-                    inputProps={{ min: 0, step: 0.01 }}
+                    inputProps={{ min: 0, step: 1.0 }}
                   />
                 </TableCell>
                 <TableCell>{formZagospodarowaniaOptions[row.forma]}</TableCell>
                 <TableCell>
                   <p className={styles.rowBaf}>
                     {isNaN(calculateBAF(row.forma, row.powierzchnia))
-                      ? "-"
-                      : calculateBAF(row.forma, row.powierzchnia).toFixed(2)}
+                      ? "0.00"
+                      : calculateBAF(row.forma, row.powierzchnia)?.toFixed(2)}
                   </p>
                 </TableCell>
                 <TableCell>
@@ -170,15 +180,15 @@ const Computation = () => {
               <TableCell></TableCell>
               <TableCell>
                 <p className={styles.rowTotalArea}>
-                  {calculateTotalArea().toFixed(2)}
+                  {calculateTotalArea()?.toFixed(2)}
                 </p>
               </TableCell>
               <TableCell></TableCell>
               <TableCell>
                 <p className={styles.rowTotalBaf}>
-                  {isNaN(calculateTotalBAF().toFixed(2))
+                  {isNaN(calculateTotalBAF())
                     ? "0.00"
-                    : calculateTotalBAF().toFixed(2)}
+                    : calculateTotalBAF()?.toFixed(2)}
                 </p>
               </TableCell>
               <TableCell></TableCell>
@@ -191,9 +201,9 @@ const Computation = () => {
       </Button>
       <div className={styles.totalBafContainer}>
         <div className={styles.totalBafBox}>
-          <p className={styles.totalBafLabel}>Suma BAF:</p>
+          <p className={styles.totalBafLabel}>Wartość BAF:</p>
           <p className={styles.totalBafValue}>
-            {calculateBAFFinalValue().toFixed(2)}
+            {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
           </p>
           <PlantAnimation></PlantAnimation>
         </div>

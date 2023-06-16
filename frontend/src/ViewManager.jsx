@@ -15,7 +15,7 @@ import NotFound from "./components/NotFound/NotFound";
 
 import Home from "./views/Home/Home";
 
-import News from "./views/Calculator/Calculator";
+import Calculator from "./views/Calculator/Calculator";
 
 // import ItemTypes from "./views/reservations/itemTypes/ItemTypes";
 // import ItemType from "./views/reservations/itemType/ItemType";
@@ -37,9 +37,9 @@ class ViewManager extends Component {
         >
           <ScrollToTop>
             <Switch>
-              <Route exact path="/" element={Home} />
-              <Route exact path="/calculator" element={News} />
-              <Route element={NotFound} />
+              <Route exact path="/" component={Home} />
+              <Route exact path="/calculator" component={Calculator} />
+              <Route component={NotFound} />
             </Switch>
           </ScrollToTop>
         </Suspense>

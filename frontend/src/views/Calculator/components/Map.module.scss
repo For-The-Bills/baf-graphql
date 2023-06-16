@@ -1,0 +1,10 @@
+@import '../../../assets/variables.scss';
+
+.mapContainer{
+    border: 2px solid $border_grey;
+    width: 800px;
+}
+
+.map{
+    height: 600px !important;
+}

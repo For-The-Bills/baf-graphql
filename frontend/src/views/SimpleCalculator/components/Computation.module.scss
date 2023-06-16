@@ -1,10 +1,22 @@
-@import '../../../assets/variables.scss';
+@import "../../../assets/variables.scss";
 
-.mapContainer{
-    border: 2px solid $border_grey;
-    width: 800px;
-}
+.computationContainer {
+  .rowBaf {
+    font-weight: 900;
+  }
 
-.map{
-    height: 600px !important;
+  .totalBafContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .totalBafBox {
+    width: 200px;
+    height: 100px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 }

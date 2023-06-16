@@ -60,8 +60,8 @@ function Selection(props) {
           <ArrowRightAltIcon></ArrowRightAltIcon>
         </div>
         <div className={styles.minimalBaf}>
-          <p>Minimalny wskaźnik baf:</p>
-          <p>{indicatorValue}</p>
+          <p>Sugerowany wskaźnik baf:</p>
+          <p className={styles.bafIndicator}>{indicatorValue}</p>
         </div>
       </div>
     </div>

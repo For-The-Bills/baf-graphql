@@ -1,7 +1,29 @@
-import { MapContainer, TileLayer, useMap, WMSTileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, WMSTileLayer } from "react-leaflet";
+import { useMap, useMapEvents } from "react-leaflet/hooks";
 import styles from "./Map.module.scss";
 function Map(props) {
   const position = [50.321484, 19.194942];
+
+  return (
+    <div className={styles.mapContainer}>
+      <MapContainer
+        className={styles.map}
+        center={position}
+        zoom={13}
+        scrollWheelZoom={false}
+      >
+        <MapComponent />
+      </MapContainer>
+    </div>
+  );
+}
+
+function MapComponent() {
+  const map = useMapEvents({
+    click: (e) => {
+      console.log(e);
+    },
+  });
 
   const tms_options = {
     url: "https://mapy.geoportal.gov.pl/wss/ext/OSM/BaseMap/tms/1.0.0/osm_3857/GLOBAL_WEBMERCATOR/{z}/{x}/{y}.png",
@@ -14,27 +36,20 @@ function Map(props) {
     minZoom: 10,
     format: "image/png",
     transparent: true,
-    url: 'https://integracja.gugik.gov.pl/cgi-bin/KrajowaIntegracjaEwidencjiGruntow'
+    url: "https://integracja.gugik.gov.pl/cgi-bin/KrajowaIntegracjaEwidencjiGruntow",
   };
 
   return (
-    <div className={styles.mapContainer}>
-      <MapContainer
-        className={styles.map}
-        center={position}
-        zoom={13}
-        scrollWheelZoom={false}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          {...tms_options}
-        />
-        <WMSTileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          {...wms_options}
-        />
-      </MapContainer>
-    </div>
+    <>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        {...tms_options}
+      />
+      <WMSTileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        {...wms_options}
+      />{" "}
+    </>
   );
 }
 

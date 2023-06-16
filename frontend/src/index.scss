@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&display=swap");
+@import "./assets/variables.scss";
+
+html,
+body {
+  overflow-x: hidden;
+}
+body {
+  position: relative;
+}
+
+body {
+  margin: 0;
+  font-family: "Jost", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  overflow: hidden;
+  height: 100vh;
+  max-width: 100vw;
+  //word-break: break-word;
+
+  ::selection {
+    background-color: $light_green2;
+    color: white;
+  }
+
+  box-sizing: border-box;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+#root {
+  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex-grow: 1;
+    overflow-y: auto !important;
+  }
+}

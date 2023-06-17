@@ -21,7 +21,7 @@ function Layer(props) {
       }
 
     return (
-        <div className={styles.layerHolder}>
+        <div key={props.index} className={styles.layerHolder}>
             <div className={styles.info}>
             <div className={styles.type}>
                 <div className={styles.color} style={{backgroundColor: color}}></div>

@@ -35,7 +35,9 @@ router.get('/by_coordinates', (req, res, next) => __awaiter(void 0, void 0, void
 router.get('/shape', (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { lat, lng, parcelRegion, parcelNumber } = req.query;
     try {
-        const result = (typeof (parcelRegion) != 'undefined' ? yield (0, uldk_1.getParcelWKTbyName)(parcelRegion, parcelNumber) : yield (0, uldk_1.getParcelWKT)(lng, lat));
+        const by_name = typeof (parcelRegion) != 'undefined';
+        console.log(req.query);
+        const result = (by_name ? yield (0, uldk_1.getParcelWKTbyName)(parcelRegion, parcelNumber) : yield (0, uldk_1.getParcelWKT)(lng, lat));
         if (result.parcelWKT == -1)
             return res.status(400).json({ error: 'Nie znaleziono działki' });
         //POLYGON((...))
@@ -52,7 +54,8 @@ router.get('/shape', (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         });
         const polygon_center = (0, geotranslator_1.calculatePolygonCenter)(parsed);
         const max_bounds = (0, geotranslator_1.calculatePolygonBounds)(parsed);
-        return res.status(200).json({ coords: parsed, polygon_center, max_bounds });
+        const name_info = by_name ? { parcelRegion, parcelNumber } : {};
+        return res.status(200).json(Object.assign({ coords: parsed, polygon_center, max_bounds }, name_info));
     }
     catch (error) {
         next(error);
@@ -62,7 +65,7 @@ router.get('/by_address', (req, res, next) => __awaiter(void 0, void 0, void 0, 
     const { address } = req.query;
     try {
         const result = yield (0, geocode_1.getCoordsByAddresss)(address);
-        if (result.error == 'error')
+        if (result[0] == -1)
             return res.status(400).json({ error: 'Niepoprawny adres' });
         return res.status(200).json(result);
     }

@@ -4,6 +4,7 @@ import Selection from "./components/Selection"
 import Hints from "./components/Hints"
 
 import styles from "./SimpleCalculator.module.scss"
+import classNames from "classnames"
 
 function SimpleCalculator(props) {
   const [selectedType, setSelectedType] = useState("")
@@ -35,15 +36,21 @@ function SimpleCalculator(props) {
 
   return (
     <div className={styles.simpleCalculatorContainer}>
-      <Selection
-        sugIndicatorValue={sugIndicatorValue}
-        handleTypeChange={handleTypeChange}
-        selectedType={selectedType}
-        selectedDistrict={selectedDistrict}
-        handleDistrictChange={handleDistrictChange}
-      />
-      <Computation sugIndicatorValue={sugIndicatorValue} />
-      <Hints></Hints>
+      <div className={classNames(styles.section, styles.leftSection)}>
+        <Selection
+          sugIndicatorValue={sugIndicatorValue}
+          handleTypeChange={handleTypeChange}
+          selectedType={selectedType}
+          selectedDistrict={selectedDistrict}
+          handleDistrictChange={handleDistrictChange}
+        />
+      </div>
+      <div className={classNames(styles.section, styles.middleSection)}>
+        <Computation sugIndicatorValue={sugIndicatorValue} />
+      </div>
+      <div className={classNames(styles.section, styles.rightSection)}>
+        <Hints></Hints>
+      </div>
     </div>
   )
 }

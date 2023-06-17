@@ -1,15 +1,30 @@
 @import "../../../assets/variables.scss";
 
-.css-1heib9t-MuiButtonBase-root-MuiTab-root.Mui-selected {
-  color: white !important;
+.bar {
+  background-color: $white;
 }
 
 .hintsContainer {
-  margin-top: 20px;
+}
+
+.sectionTitle {
+  width: 100%;
+  height: 50px;
+  background-color: $dark_green;
+  color: $white;
+  font-weight: 900;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem 1rem 0rem 0rem;
 }
 
 .hintIntro {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.activeTab {
+  color: $white;
 }

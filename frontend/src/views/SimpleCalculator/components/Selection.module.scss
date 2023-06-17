@@ -1,17 +1,32 @@
 @import "../../../assets/variables.scss";
 
 .centerBox {
+  width: 100%;
+  min-width: 100%;
+}
+
+.sectionTitle {
+  width: 100%;
+  height: 50px;
+  background-color: $dark_green;
+  color: $white;
+  font-weight: 900;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 1rem 1rem 0rem 0rem;
+}
+
+.sectionTitleText {
+  margin-right: 0.5rem;
 }
 
 .selectionWrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: row;
-  width: 600px;
+  flex-direction: column;
+  width: 100%;
 }
 
 .selectionContainer {
@@ -33,6 +48,14 @@
     // display: flex;
     // justify-content: space-between;
     // align-items: center;
+  }
+
+  .arrow {
+    color: $dark_green;
+
+    .arrowIcon {
+      color: $dark_green;
+    }
   }
 
   .bafIndicator {

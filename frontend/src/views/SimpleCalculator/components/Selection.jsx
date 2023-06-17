@@ -4,7 +4,10 @@ import { Slide, Fade } from "react-awesome-reveal"
 
 import { InputLabel, MenuItem, Select } from "@mui/material"
 import FormControl from "@mui/material/FormControl"
-import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt"
+import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded"
+
+import HelpIcon from "@mui/icons-material/Help"
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
 
 function Selection({
   sugIndicatorValue,
@@ -15,7 +18,11 @@ function Selection({
 }) {
   return (
     <div className={styles.centerBox}>
-      <Slide direction="down" triggerOnce={true}>
+      <Slide direction="left" triggerOnce={true}>
+        <div className={styles.sectionTitle}>
+          <p className={styles.sectionTitleText}>Konfiguracja</p>
+          <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+        </div>
         <div className={styles.selectionWrapper}>
           <div className={styles.selectionContainer}>
             <div className={styles.typeOfBuildingSelect}>
@@ -67,7 +74,9 @@ function Selection({
           </div>
 
           <div className={styles.arrow}>
-            <ArrowRightAltIcon></ArrowRightAltIcon>
+            <ArrowDownwardRoundedIcon
+              style={{ fontSize: 50 }}
+            ></ArrowDownwardRoundedIcon>
           </div>
           <div className={styles.minimalBaf}>
             <p>Sugerowany wskaźnik baf:</p>

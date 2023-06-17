@@ -57,7 +57,7 @@ const Hints = () => {
         <p>Jeśli chcesz zwiększyć wartość BAF, przeczytaj poniższe rady</p>
       </div>
 
-      <AppBar position="static">
+      <AppBar position="static" sx={{ bgcolor: "white" }}>
         <Tabs
           value={activeTab}
           onChange={handleTabChange}

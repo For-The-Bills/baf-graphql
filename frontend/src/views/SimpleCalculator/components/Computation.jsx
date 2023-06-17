@@ -15,6 +15,7 @@ import {
   TextField,
   MenuItem,
 } from "@mui/material"
+import Popover from "@mui/material/Popover"
 
 import PlantAnimation from "./PlantAnimation"
 import PanelButton from "./PanelButton"
@@ -24,20 +25,74 @@ import PersonRoundedIcon from "@mui/icons-material/PersonRounded"
 import ArchitectureRoundedIcon from "@mui/icons-material/ArchitectureRounded"
 
 const formZagospodarowaniaOptions = {
-  "powierzchnie szczelne (nieprzepuszczalne)": 0,
-  "powierzchnie półprzepuszczalne": 0.5,
-  "powierzchnie perforowane": 0.3,
-  "powierzchnie przepuszczalne": 1,
-  zabudowa: 0,
-  "drzewo (pow. odkryta pod koroną, m2)": 1,
-  "krzew (pow. odkryta pod krzewem, m2)": 0.7,
-  "łąka kwietna": 0.7,
-  "trawa (murawa)": 0.3,
-  "dachy zielone": 0.7,
-  "ściany zielone": 0.5,
-  "rośliny pnące (na 1m2 powierzchni)": 0.3,
-  "ogród deszczowy (na 1m2)": 0.7,
+  "powierzchnie szczelne (nieprzepuszczalne)": {
+    value: 0,
+    tooltip: "Powierzchnie, które nie przepuszczają wody deszczowej",
+  },
+  "powierzchnie półprzepuszczalne": {
+    value: 0.5,
+    tooltip: "Powierzchnie, które częściowo przepuszczają wodę deszczową",
+  },
+  "powierzchnie perforowane": {
+    value: 0.3,
+    tooltip: "Powierzchnie, które mają otwory lub perforację",
+  },
+  "powierzchnie przepuszczalne": {
+    value: 1,
+    tooltip: "Powierzchnie, które całkowicie przepuszczają wodę deszczową",
+  },
+  zabudowa: {
+    value: 0,
+    tooltip: "Powierzchnia zabudowana budynkiem",
+  },
+  "drzewo (pow. odkryta pod koroną, m2)": {
+    value: 1,
+    tooltip: "Powierzchnia ziemi odkryta pod koroną drzewa",
+  },
+  "krzew (pow. odkryta pod krzewem, m2)": {
+    value: 0.7,
+    tooltip: "Powierzchnia ziemi odkryta pod krzewem",
+  },
+  "łąka kwietna": {
+    value: 0.7,
+    tooltip: "Powierzchnia łąki z roślinami kwietnymi",
+  },
+  "trawa (murawa)": {
+    value: 0.3,
+    tooltip: "Powierzchnia trawnika lub murawy",
+  },
+  "dachy zielone": {
+    value: 0.7,
+    tooltip: "Powierzchnia dachów zielonych",
+  },
+  "ściany zielone": {
+    value: 0.5,
+    tooltip: "Powierzchnia ścian zielonych",
+  },
+  "rośliny pnące (na 1m2 powierzchni)": {
+    value: 0.3,
+    tooltip: "Powierzchnia roślin pnących na 1m²",
+  },
+  "ogród deszczowy (na 1m2)": {
+    value: 0.7,
+    tooltip: "Ogród deszczowy na 1m²",
+  },
 }
+// const formZagospodarowaniaOptions = {
+//   "powierzchnie szczelne (nieprzepuszczalne)": 0,
+//   "powierzchnie półprzepuszczalne": 0.5,
+//   "powierzchnie perforowane": 0.3,
+//   "powierzchnie przepuszczalne": 1,
+//   zabudowa: 0,
+//   "drzewo (pow. odkryta pod koroną, m2)": 1,
+//   "krzew (pow. odkryta pod krzewem, m2)": 0.7,
+//   "łąka kwietna": 0.7,
+//   "trawa (murawa)": 0.3,
+//   "dachy zielone": 0.7,
+//   "ściany zielone": 0.5,
+//   "rośliny pnące (na 1m2 powierzchni)": 0.3,
+//   "ogród deszczowy (na 1m2)": 0.7,
+// }
 
 const Computation = ({ sugIndicatorValue }) => {
   const [rows, setRows] = useState([{ nazwa: "", forma: "", powierzchnia: "" }])

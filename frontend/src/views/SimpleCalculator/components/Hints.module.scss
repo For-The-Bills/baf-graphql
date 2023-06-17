@@ -1,5 +1,9 @@
 @import "../../../assets/variables.scss";
 
+.bar {
+  background-color: $white;
+}
+
 .hintsContainer {
   margin-top: 20px;
 }
@@ -8,4 +12,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.activeTab {
+  color: $white;
 }

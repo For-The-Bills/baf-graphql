@@ -206,7 +206,7 @@ function MapComponent(props) {
     maxZoom: 22,
     format: "image/png",
     transparent: false,
-    url: "https://mapy.geoportal.gov.pl/wss/service/PZGIK/ORTO/WMS/HighResolution",
+    url: "https://mapy.geoportal.gov.pl/wss/service/PZGIK/ORTO/WMS/StandardResolution",
   };
 
   return (

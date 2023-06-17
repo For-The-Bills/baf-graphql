@@ -1,6 +1,7 @@
 import styles from "./Computation.module.scss"
 import React, { useState, useEffect } from "react"
 import { Slide, Fade, JackInTheBox } from "react-awesome-reveal"
+import { CSSTransition, TransitionGroup } from "react-transition-group"
 
 import {
   Button,
@@ -135,69 +136,77 @@ const Computation = ({ sugIndicatorValue }) => {
             </TableHead>
             <TableBody>
               {rows.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <TextField
-                      value={row.nazwa}
-                      onChange={(event) => handleNazwaChange(event, index)}
-                      fullWidth
-                      inputProps={{ maxLength: 50 }}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <TextField
-                      select
-                      value={row.forma}
-                      onChange={(event) => handleFormaChange(event, index)}
-                      fullWidth
-                    >
-                      {Object.keys(formZagospodarowaniaOptions).map(
-                        (option, index) => (
-                          <MenuItem key={index} value={option}>
-                            {option}
-                          </MenuItem>
-                        )
-                      )}
-                    </TextField>
-                  </TableCell>
-                  <TableCell>
-                    <TextField
-                      type="number"
-                      value={row.powierzchnia}
-                      onChange={(event) =>
-                        handlePowierzchniaChange(event, index)
-                      }
-                      fullWidth
-                      inputProps={{ min: 0, step: 1.0 }}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    {formZagospodarowaniaOptions[row.forma]}
-                  </TableCell>
-                  <TableCell>
-                    <p className={styles.rowBaf}>
-                      {isNaN(calculateBAF(row.forma, row.powierzchnia))
-                        ? "0.00"
-                        : calculateBAF(row.forma, row.powierzchnia)?.toFixed(2)}
-                    </p>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleDuplicateRow(index)}
-                    >
-                      Duplikuj
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleRemoveRow(index)}
-                    >
-                      Usuń
-                    </Button>
-                  </TableCell>
-                </TableRow>
+                <CSSTransition
+                  key={index}
+                  classNames={styles.fade}
+                  timeout={300}
+                >
+                  <TableRow key={index}>
+                    <TableCell>
+                      <TextField
+                        value={row.nazwa}
+                        onChange={(event) => handleNazwaChange(event, index)}
+                        fullWidth
+                        inputProps={{ maxLength: 50 }}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        select
+                        value={row.forma}
+                        onChange={(event) => handleFormaChange(event, index)}
+                        fullWidth
+                      >
+                        {Object.keys(formZagospodarowaniaOptions).map(
+                          (option, index) => (
+                            <MenuItem key={index} value={option}>
+                              {option}
+                            </MenuItem>
+                          )
+                        )}
+                      </TextField>
+                    </TableCell>
+                    <TableCell>
+                      <TextField
+                        type="number"
+                        value={row.powierzchnia}
+                        onChange={(event) =>
+                          handlePowierzchniaChange(event, index)
+                        }
+                        fullWidth
+                        inputProps={{ min: 0, step: 1.0 }}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      {formZagospodarowaniaOptions[row.forma]}
+                    </TableCell>
+                    <TableCell>
+                      <p className={styles.rowBaf}>
+                        {isNaN(calculateBAF(row.forma, row.powierzchnia))
+                          ? "0.00"
+                          : calculateBAF(row.forma, row.powierzchnia)?.toFixed(
+                              2
+                            )}
+                      </p>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleDuplicateRow(index)}
+                      >
+                        Duplikuj
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleRemoveRow(index)}
+                      >
+                        Usuń
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                </CSSTransition>
               ))}
               <TableRow>
                 <TableCell></TableCell>

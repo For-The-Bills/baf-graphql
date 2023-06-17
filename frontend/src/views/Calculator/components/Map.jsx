@@ -1,4 +1,4 @@
-import { MapContainer, Polygon, TileLayer, WMSTileLayer } from "react-leaflet";
+import { MapContainer, Polygon, TileLayer, WMSTileLayer, Marker } from "react-leaflet";
 import { useMap, useMapEvents } from "react-leaflet/hooks";
 import styles from "./Map.module.scss";
 import { transformCoordinates } from "../../../utils/Utils";
@@ -13,6 +13,8 @@ import {
   selectMapPositionCenter,
   selectParcelSelected,
   selectEditorData,
+  addNewMarker,
+  selectCurrentlySelectedLayerIndex,
 } from "../../../redux/slices/calcSlice";
 import Modal from "../../../components/Modal/Modal";
 import LoadingButton from "@mui/lab/LoadingButton";
@@ -69,6 +71,7 @@ function MapComponent(props) {
   const parcelSelected = useSelector(selectParcelSelected);
   const editorData = useSelector(selectEditorData);
   const mapRef = props.mapRef;
+  const currentSelectionIndex = useSelector(selectCurrentlySelectedLayerIndex)
 
   const handleKeepInBounds = () => {
     if (
@@ -108,6 +111,9 @@ function MapComponent(props) {
       const { lat, lng } = e.latlng;
       console.log(e.latlng);
       if (!parcelSelected) dispatch(getParcelByCoordinates({ x: lat, y: lng }));
+      if(currentSelectionIndex != -1) {
+        dispatch(addNewMarker([lat, lng]))
+      }
     },
     drag: () => {
       debouncedKeepInBounds();
@@ -124,7 +130,7 @@ function MapComponent(props) {
   };
 
   const wms_options = {
-    layers: "dzialki,numery_dzialek",
+    layers: "dzialki,numery_dzialek,budynki",
     minZoom: 10,
     maxZoom: 22,
     format: "image/png",
@@ -163,6 +169,23 @@ function MapComponent(props) {
       {parcelSelected && editorData && editorData.coords.length > 0 && (
         <Polygon positions={editorData.coords} color="red" fill={false} />
       )}
+
+      {currentSelectionIndex != -1 && 
+        editorData.layers[currentSelectionIndex].polygon.map((coords, index) => {
+          return (
+            <Marker position={coords}/>
+          )
+        })
+      }
+
+      { Object.keys(editorData).length > 0 &&
+        editorData.layers.map((layer, index) => {
+          return (
+            <Polygon positions={layer.polygon} color={layer.color} />
+          )
+        })
+      }
+
     </>
   );
 }

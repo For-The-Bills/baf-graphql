@@ -1,9 +1,11 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import API from "../../API/apiService";
 import { toast } from "react-toastify";
 import Cookie from "js-cookie";
 import { history } from "../../index.jsx";
 import { emmitError, emmitSuccess } from "../../utils/ToastEmmiter";
+import { feature, polygon, area } from '@turf/turf';
+import LatLon from 'geodesy/latlon-spherical';
 
 export const getParcelByCoordinates = createAsyncThunk(
   "calc/getParcelByCoordinates",
@@ -34,6 +36,14 @@ export const getParcelShape = createAsyncThunk(
       });
   }
 );
+
+function calculateArea(coordinates) {
+  const latLons = coordinates.map(([lon, lat]) => new LatLon(lat, lon));
+
+  const areaInSquareMeters = LatLon.areaOf(latLons);
+
+  return areaInSquareMeters;
+}
 
 export const calcSlice = createSlice({
   name: "logs",
@@ -134,6 +144,22 @@ export const calcSlice = createSlice({
       state.currentlySelectedLayerIndex = state.editorData.layers.length;
       state.editorData.layers.push(action.payload);
       state.additionModal = false;
+    },
+    addNewMarker: (state, action) => {
+      state.editorData.layers[state.currentlySelectedLayerIndex].polygon.push(action.payload);
+    },
+    completeLayer: (state) => {
+      const poly = current(state.editorData.layers[state.currentlySelectedLayerIndex].polygon);
+      console.log(poly)
+      const a = calculateArea([...poly, poly[0]])
+      console.log(a)
+      state.editorData.layers[state.currentlySelectedLayerIndex].area = parseFloat(a.toFixed(2));
+      state.currentlySelectedLayerIndex = -1;
+    },
+    removeLayer: (state, action) => {
+      console.log(action.payload)
+      state.editorData.layers = state.editorData.layers.filter((_, index) => index != action.payload);
+      state.currentlySelectedLayerIndex = -1;
     }
   },
   extraReducers: (builder) => {
@@ -181,7 +207,10 @@ export const {
   closeInfoModal,
   closeAdditionModal,
   openAdditionModal,
-  addNewLayer
+  addNewLayer,
+  addNewMarker,
+  completeLayer,
+  removeLayer
 } = actions;
 
 export const selectParcelData = (state) => state.calc.parcelData;

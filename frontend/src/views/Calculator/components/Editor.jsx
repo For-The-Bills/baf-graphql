@@ -6,7 +6,9 @@ import {
   selectParcelData,
   selectSurfaces,
   selectAdditionModalState,
-  addNewLayer
+  addNewLayer,
+  completeLayer,
+  selectCurrentlySelectedLayerIndex
 } from "../../../redux/slices/calcSlice";
 import styles from "./Editor.module.scss";
 import Button from "@mui/material/Button";
@@ -27,6 +29,7 @@ function Editor(props) {
   const additionModalState = useSelector(selectAdditionModalState);
   const surfaces = useSelector(selectSurfaces);
   const dispatch = useDispatch();
+  const currentSelectionIndex = useSelector(selectCurrentlySelectedLayerIndex)
 
   const [localSurfaceSelection, setLocalSurfaceSeletion] = useState(Object.keys(surfaces).length > 0 ? Object.keys(surfaces)[0] : '');
     const [localSurfaceOwnName, setLocalSurfaceOwnName] = useState('');
@@ -56,6 +59,8 @@ function Editor(props) {
     console.log(event.target)
     setLocalSurfaceSeletion(event.target.value);
   };
+
+  
 
   const additionModal = (
     <Modal
@@ -127,6 +132,7 @@ function Editor(props) {
             fullWidth
             color="primary"
             variant="outlined"
+            disabled={currentSelectionIndex != -1}
           >
             Dodaj warstwę
           </Button>

@@ -1,5 +1,6 @@
 import styles from "./Computation.module.scss"
 import React, { useState, useEffect } from "react"
+import { Slide, Fade } from "react-awesome-reveal"
 
 import {
   Button,
@@ -31,7 +32,7 @@ const formZagospodarowaniaOptions = {
   "ogród deszczowy (na 1m2)": 0.7,
 }
 
-const Computation = () => {
+const Computation = ({ sugIndicatorValue }) => {
   const [rows, setRows] = useState([{ nazwa: "", forma: "", powierzchnia: "" }])
   const [bafFinalValue, setBafFinalValue] = useState(0)
 
@@ -100,6 +101,13 @@ const Computation = () => {
     }
   }
 
+  const handleDuplicateRow = (index) => {
+    const duplicatedRow = { ...rows[index] }
+    const updatedRows = [...rows]
+    updatedRows.splice(index + 1, 0, duplicatedRow)
+    setRows(updatedRows)
+  }
+
   useEffect(() => {
     const bafValue = calculateBAFFinalValue()
     setBafFinalValue(bafValue)
@@ -107,107 +115,129 @@ const Computation = () => {
 
   return (
     <div className={styles.computationContainer}>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell style={{ width: "20%" }}>Nazwa</TableCell>
-              <TableCell style={{ width: "25%" }}>
-                Forma zagospodarowania
-              </TableCell>
-              <TableCell style={{ width: "15%" }}>Powierzchnia (m2)</TableCell>
-              <TableCell style={{ width: "15%" }}>Współczynnik</TableCell>
-              <TableCell style={{ width: "15%" }}>BAF (m2)</TableCell>
-              <TableCell style={{ width: "10%" }}></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <TextField
-                    value={row.nazwa}
-                    onChange={(event) => handleNazwaChange(event, index)}
-                    fullWidth
-                    inputProps={{ maxLength: 50 }}
-                  />
+      <Fade>
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell style={{ width: "20%" }}>Nazwa</TableCell>
+                <TableCell style={{ width: "30%" }}>
+                  Forma zagospodarowania
                 </TableCell>
-                <TableCell>
-                  <TextField
-                    select
-                    value={row.forma}
-                    onChange={(event) => handleFormaChange(event, index)}
-                    fullWidth
-                  >
-                    {Object.keys(formZagospodarowaniaOptions).map(
-                      (option, index) => (
-                        <MenuItem key={index} value={option}>
-                          {option}
-                        </MenuItem>
-                      )
-                    )}
-                  </TextField>
+                <TableCell style={{ width: "15%" }}>
+                  Powierzchnia (m2)
                 </TableCell>
+                <TableCell style={{ width: "10%" }}>Współczynnik</TableCell>
+                <TableCell style={{ width: "10%" }}>BAF (m2)</TableCell>
+                <TableCell style={{ width: "5%" }}></TableCell>
+                <TableCell style={{ width: "5%" }}></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, index) => (
+                <TableRow key={index}>
+                  <TableCell>
+                    <TextField
+                      value={row.nazwa}
+                      onChange={(event) => handleNazwaChange(event, index)}
+                      fullWidth
+                      inputProps={{ maxLength: 50 }}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      select
+                      value={row.forma}
+                      onChange={(event) => handleFormaChange(event, index)}
+                      fullWidth
+                    >
+                      {Object.keys(formZagospodarowaniaOptions).map(
+                        (option, index) => (
+                          <MenuItem key={index} value={option}>
+                            {option}
+                          </MenuItem>
+                        )
+                      )}
+                    </TextField>
+                  </TableCell>
+                  <TableCell>
+                    <TextField
+                      type="number"
+                      value={row.powierzchnia}
+                      onChange={(event) =>
+                        handlePowierzchniaChange(event, index)
+                      }
+                      fullWidth
+                      inputProps={{ min: 0, step: 1.0 }}
+                    />
+                  </TableCell>
+                  <TableCell>
+                    {formZagospodarowaniaOptions[row.forma]}
+                  </TableCell>
+                  <TableCell>
+                    <p className={styles.rowBaf}>
+                      {isNaN(calculateBAF(row.forma, row.powierzchnia))
+                        ? "0.00"
+                        : calculateBAF(row.forma, row.powierzchnia)?.toFixed(2)}
+                    </p>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleDuplicateRow(index)}
+                    >
+                      Duplikuj
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleRemoveRow(index)}
+                    >
+                      Usuń
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
                 <TableCell>
-                  <TextField
-                    type="number"
-                    value={row.powierzchnia}
-                    onChange={(event) => handlePowierzchniaChange(event, index)}
-                    fullWidth
-                    inputProps={{ min: 0, step: 1.0 }}
-                  />
-                </TableCell>
-                <TableCell>{formZagospodarowaniaOptions[row.forma]}</TableCell>
-                <TableCell>
-                  <p className={styles.rowBaf}>
-                    {isNaN(calculateBAF(row.forma, row.powierzchnia))
-                      ? "0.00"
-                      : calculateBAF(row.forma, row.powierzchnia)?.toFixed(2)}
+                  <p className={styles.rowTotalArea}>
+                    {calculateTotalArea()?.toFixed(2)}
                   </p>
                 </TableCell>
+                <TableCell></TableCell>
                 <TableCell>
-                  <Button
-                    variant="outlined"
-                    onClick={() => handleRemoveRow(index)}
-                  >
-                    Usuń
-                  </Button>
+                  <p className={styles.rowTotalBaf}>
+                    {isNaN(calculateTotalBAF())
+                      ? "0.00"
+                      : calculateTotalBAF()?.toFixed(2)}
+                  </p>
                 </TableCell>
+                <TableCell></TableCell>
               </TableRow>
-            ))}
-            <TableRow>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell>
-                <p className={styles.rowTotalArea}>
-                  {calculateTotalArea()?.toFixed(2)}
-                </p>
-              </TableCell>
-              <TableCell></TableCell>
-              <TableCell>
-                <p className={styles.rowTotalBaf}>
-                  {isNaN(calculateTotalBAF())
-                    ? "0.00"
-                    : calculateTotalBAF()?.toFixed(2)}
-                </p>
-              </TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Button variant="contained" onClick={handleAddRow}>
-        Dodaj wiersz
-      </Button>
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Fade>
+      <Slide>
+        <Button variant="contained" onClick={handleAddRow}>
+          Dodaj wiersz
+        </Button>
+      </Slide>
+
       <div className={styles.totalBafContainer}>
         <div className={styles.totalBafBox}>
           <p className={styles.totalBafLabel}>Wartość BAF:</p>
           <p className={styles.totalBafValue}>
             {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
           </p>
-          <PlantAnimation></PlantAnimation>
         </div>
       </div>
+      <Slide>
+        <PlantAnimation></PlantAnimation>
+      </Slide>
     </div>
   )
 }

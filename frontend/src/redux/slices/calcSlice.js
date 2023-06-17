@@ -231,6 +231,7 @@ export const calcSlice = createSlice({
     builder.addCase(getParcelShape.fulfilled, (state, action) => {
       state.editorLoading = false;
       state.editorData = {...action.payload, layers:[]};
+      state.editorData.area = calculateArea(action.payload.coords);
       state.parcelSelected = true;
       state.infoModal = false;
       state.zoomToCoords = action.payload.polygon_center.reverse();
@@ -252,6 +253,7 @@ export const calcSlice = createSlice({
     builder.addCase(getParcelShapeByName.fulfilled, (state, action) => {
       state.parcelLoading = false;
       state.editorData = {coords: action.payload.coords, polygon_center: action.payload.polygon_center, max_bounds: action.payload.max_bounds, layers:[]};
+      state.editorData.area = calculateArea(action.payload.coords);
       state.parcelData = {
         parcelNumber: action.payload.parcelNumber,
         parcelRegion: action.payload.parcelRegion,

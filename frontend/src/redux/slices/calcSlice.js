@@ -53,6 +53,15 @@ export const calcSlice = createSlice({
     additionModal: false,
     infoModal: false,
     mapPositionCenter: [50.321484, 19.194942],
+    indicators: {
+      mieszkaniowa: 0.6,
+    "przestrzenie publiczne": 0.6,
+    usługowa: 0.3,
+    produkcyjna: 0.3,
+    "usługowo-produkcyjna": 0.3,
+    "usługowo-mieszkaniowa": 0.5,
+    "składy i magazyny": 0.3,
+    },
     surfaces: {
       "powierzchnie szczelne (nieprzepuszczalne)": {
         name: "powierzchnie szczelne (nieprzepuszczalne)",
@@ -127,6 +136,10 @@ export const calcSlice = createSlice({
       state.parcelData = {};
       state.parcelLoading = false;
       state.infoModal = false;
+      state.editorData = {};
+      state.additionModal = false;
+      state.currentlySelectedLayerIndex = -1;
+      state.parcelSelected = false;
     },
     closeInfoModal: (state) => {
       state.infoModal = false;
@@ -220,5 +233,6 @@ export const selectMapPositionCenter = (state) => state.calc.mapPositionCenter;
 export const selectAdditionModalState = (state) => state.calc.additionModal;
 export const selectSurfaces = (state) => state.calc.surfaces;
 export const selectCurrentlySelectedLayerIndex = (state) => state.calc.currentlySelectedLayerIndex;
+export const selectIndicators = (state) => state.calc.indicators;
 
 export default reducer;

@@ -8,7 +8,9 @@ import {
   selectAdditionModalState,
   addNewLayer,
   completeLayer,
-  selectCurrentlySelectedLayerIndex
+  selectCurrentlySelectedLayerIndex,
+  selectIndicators,
+  clearParcelData,
 } from "../../../redux/slices/calcSlice";
 import styles from "./Editor.module.scss";
 import Button from "@mui/material/Button";
@@ -19,20 +21,35 @@ import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import TextField from '@mui/material/TextField';
-import { useState } from "react";
+import TextField from "@mui/material/TextField";
+import { useEffect, useState } from "react";
 import Layer from "./Layer";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import CloseIcon from '@mui/icons-material/Close';
+import variables from '../../../assets/variables.scss'
 
 function Editor(props) {
   const editorData = useSelector(selectEditorData);
   const parcelData = useSelector(selectParcelData);
   const additionModalState = useSelector(selectAdditionModalState);
+  const indicators = useSelector(selectIndicators);
   const surfaces = useSelector(selectSurfaces);
   const dispatch = useDispatch();
-  const currentSelectionIndex = useSelector(selectCurrentlySelectedLayerIndex)
+  const currentSelectionIndex = useSelector(selectCurrentlySelectedLayerIndex);
 
-  const [localSurfaceSelection, setLocalSurfaceSeletion] = useState(Object.keys(surfaces).length > 0 ? Object.keys(surfaces)[0] : '');
-    const [localSurfaceOwnName, setLocalSurfaceOwnName] = useState('');
+  const [localBAF, setLocalBAF] = useState(0);
+
+  const [localSurfaceSelection, setLocalSurfaceSeletion] = useState(
+    Object.keys(surfaces).length > 0 ? Object.keys(surfaces)[0] : ""
+  );
+  const [localSurfaceOwnName, setLocalSurfaceOwnName] = useState("");
+
+  const [localIndicatorSelection, setLocalIndicatorSelection] = useState(
+    Object.keys(indicators).length > 0 ? Object.keys(indicators)[0] : ""
+  );
 
   const handleModalOpen = () => {
     dispatch(openAdditionModal());
@@ -40,27 +57,44 @@ function Editor(props) {
 
   const handleOwnNameChange = (event) => {
     setLocalSurfaceOwnName(event.target.value);
-  }
+  };
 
   const handleModalClose = () => {
     dispatch(closeAdditionModal());
   };
 
   const handleAddLayer = () => {
-    dispatch(addNewLayer({
+    dispatch(
+      addNewLayer({
         polygon: [],
         surfaceType: localSurfaceSelection,
         color: surfaces[localSurfaceSelection].color,
-        ownName: localSurfaceOwnName
-    }))
+        ownName: localSurfaceOwnName,
+      })
+    );
   };
 
+  const handleDeselectParcel = () => {
+    dispatch(clearParcelData())
+  }
+
   const handleSelectChange = (event) => {
-    console.log(event.target)
+    console.log(event.target);
     setLocalSurfaceSeletion(event.target.value);
   };
 
-  
+  const handleIndicatorChange = (event) => {
+    setLocalIndicatorSelection(event.target.value);
+  };
+
+  useEffect(() => {
+    let outcome_baf = 0;
+    editorData.layers.forEach((layer) => {
+      const multiplier = surfaces[layer.surfaceType].value;
+      outcome_baf += layer.area * multiplier;
+    });
+    setLocalBAF(outcome_baf);
+  }, [localSurfaceSelection, editorData.layers]);
 
   const additionModal = (
     <Modal
@@ -72,26 +106,38 @@ function Editor(props) {
     >
       <div className={styles.additionModalBody}>
         <div className={styles.inputs}>
-            <div className={styles.surfaceTypeSelection}>
-            <div style={{backgroundColor: `${surfaces[localSurfaceSelection] ? surfaces[localSurfaceSelection].color : ""}`}} className={styles.currentColorContainer}>
-
-            </div>
-          <FormControl fullWidth>
-            <InputLabel>Rodzaj powierzchni</InputLabel>
-            <Select
-              sx={{width: '20rem'}}
-              label="Rodzaj powierzchni"
-              value={localSurfaceSelection}
-              onChange={handleSelectChange}
-            >
-              {Object.keys(surfaces).map((key) => (
-                <MenuItem value={key}>{surfaces[key].name}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+          <div className={styles.surfaceTypeSelection}>
+            <div
+              style={{
+                backgroundColor: `${
+                  surfaces[localSurfaceSelection]
+                    ? surfaces[localSurfaceSelection].color
+                    : ""
+                }`,
+              }}
+              className={styles.currentColorContainer}
+            ></div>
+            <FormControl fullWidth>
+              <InputLabel>Rodzaj powierzchni</InputLabel>
+              <Select
+                sx={{ width: "20rem" }}
+                label="Rodzaj powierzchni"
+                value={localSurfaceSelection}
+                onChange={handleSelectChange}
+              >
+                {Object.keys(surfaces).map((key) => (
+                  <MenuItem value={key}>{surfaces[key].name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <div className={styles.surfaceOwnName}>
-                <TextField onChange={handleOwnNameChange} fullWidth label='Nazwa własna powierzchni'  variant='outlined'/>
+            <TextField
+              onChange={handleOwnNameChange}
+              fullWidth
+              label="Nazwa własna powierzchni"
+              variant="outlined"
+            />
           </div>
         </div>
         <div className={styles.buttons}>
@@ -117,7 +163,12 @@ function Editor(props) {
   return (
     <div className={styles.editorContainer}>
       <div className={styles.header}>
-        <div className={styles.intro}>Wybrana działka</div>
+        <div className={styles.intro}>
+          Wybrana działka
+          <IconButton onClick={handleDeselectParcel}>
+            <CloseIcon color='light' fontSize="inherit" />
+          </IconButton>
+        </div>
         <div className={styles.parcelInfo}>
           <div className={styles.parcelRegion}>{parcelData.parcelRegion}</div>
           <div className={styles.parcelNumber}>{parcelData.parcelNumber}</div>
@@ -139,29 +190,50 @@ function Editor(props) {
         </div>
 
         <div className={styles.items}>
-
-            {editorData.layers.map((layer, index) => (
-                <Layer key={index} index={index} layer={layer}/>
-            ))}
-
-
+          {editorData.layers.map((layer, index) => (
+            <Layer key={index} index={index} layer={layer} />
+          ))}
         </div>
 
         <div className={styles.calc}>
-                <div className={styles.type}>
+          <div className={styles.type}>
+            <FormControl>
+              <InputLabel>Rodzaj zabudowy</InputLabel>
+              <Select
+                sx={{ width: "20rem" }}
+                label="Rodzaj zabudowy"
+                value={localIndicatorSelection}
+                onChange={handleIndicatorChange}
+                className={styles.select}
+              >
+                {Object.keys(indicators).map((key) => (
+                  <MenuItem value={key}>{key}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </div>
 
-                    
-
-                </div>
-                
-                <div className={styles.calcHeader}>
-                    Wskaźnik BAF
-                </div>
-                <div className={styles.outcome}>
-                    ...
-                </div>
+          <div style={{backgroundColor: localBAF > (indicators[localIndicatorSelection] ? indicators[localIndicatorSelection] : 0) ? variables.green : variables.light_red}} className={styles.calcHeader}>Wskaźnik BAF</div>
+          <div className={styles.outcome}>
+            <div className={styles.left}>{localBAF ? localBAF : 0}</div>
+            <div className={styles.divider}>
+              {indicators[localIndicatorSelection] ? (
+                indicators[localIndicatorSelection] > localBAF ? (
+                  <KeyboardArrowLeftIcon sx={{ fontSize: 34 }} />
+                ) : (
+                  <KeyboardArrowRightIcon sx={{ fontSize: 34 }} />
+                )
+              ) : (
+                ""
+              )}
+            </div>
+            <div className={styles.right}>
+              {indicators[localIndicatorSelection]
+                ? indicators[localIndicatorSelection]
+                : ""}
+            </div>
+          </div>
         </div>
-
       </div>
 
       {additionModal}

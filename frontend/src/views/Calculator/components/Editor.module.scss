@@ -1,17 +1,31 @@
 @import "../../../assets/variables.scss";
 
+$editor_width: 25rem;
+
 .editorContainer {
   display: flex;
   flex-direction: column;
-  width: 25rem;
-  border: 2px solid $dark_grey;
+  width: $editor_width;
+  height: calc(100vh - $navbar_height);
+  //border: 2px solid $dark_grey;
+  position: absolute;
+  z-index: 950;
+  background-color: white;
+  right: 0;
+  top: 0;
 
- 
+  -webkit-animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+
+  -webkit-box-shadow: -14px 0px 27px -21px rgba(0, 0, 0, 1);
+  -moz-box-shadow: -14px 0px 27px -21px rgba(0, 0, 0, 1);
+  box-shadow: -14px 0px 27px -21px rgba(0, 0, 0, 1);
 
   .header {
     display: flex;
     flex-direction: column;
-    border-bottom: 2px solid $dark_grey;
+
     .intro {
       background-color: $border_grey;
       color: white;
@@ -50,6 +64,72 @@
       display: flex;
       flex-direction: column;
       padding: 0.5rem;
+      gap: 1rem;
+      height: 50rem;
     }
+
+    .calc{
+      display: flex;
+    }
+  }
+}
+
+.additionModalBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+  .inputs {
+    display: flex;
+    width: 90%;
+    gap: 1rem;
+    margin: 2rem 0 1rem 0;
+    justify-content: space-around;
+    .surfaceTypeSelection {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.2rem;
+      .currentColorContainer {
+        width: 3rem;
+        height: 3rem;
+        border: 2px solid $border_grey;
+      }
+    }
+    .surfaceOwnName {
+      width: 100%;
+    }
+  }
+  .buttons {
+    display: flex;
+    gap: 0.625rem;
+  }
+}
+
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-right: -$editor_width;
+    right: -$editor_width;
+    opacity: 0;
+  }
+  100% {
+    -webkit-right: translateX(0);
+    right: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    -webkit-right: -$editor_width;
+    right: -$editor_width;
+    opacity: 0;
+  }
+  100% {
+    -webkit-right: translateX(0);
+    right: translateX(0);
+    opacity: 1;
   }
 }

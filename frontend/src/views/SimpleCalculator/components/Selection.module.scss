@@ -1,15 +1,38 @@
 @import "../../../assets/variables.scss";
 
-.selectionContainer {
+.centerBox {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.selectionWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  width: 600px;
+}
+
+.selectionContainer {
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
 
   .typeOfBuildingContainer {
-    width: 500px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    // width: 600px;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
+  }
+
+  .typeOfDistrictContainer {
+    // width: 600px;
+    // display: flex;
+    // justify-content: space-between;
+    // align-items: center;
   }
 
   .bafIndicator {

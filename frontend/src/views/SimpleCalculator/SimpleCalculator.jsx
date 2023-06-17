@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react"
 import Computation from "./components/Computation"
 import Selection from "./components/Selection"
+import Hints from "./components/Hints"
+
 import styles from "./SimpleCalculator.module.scss"
 
 function SimpleCalculator(props) {
   const [selectedType, setSelectedType] = useState("")
+  const [selectedDistrict, setSelectedDistrict] = useState("")
   const [sugIndicatorValue, setSugIndicatorValue] = useState(
     "Wybierz rodzaj zabudowy"
   )
@@ -25,14 +28,22 @@ function SimpleCalculator(props) {
     setSugIndicatorValue(indicatorDictionary[selectedValue] || "błąd")
   }
 
+  const handleDistrictChange = (event) => {
+    const selectedValue = event.target.value
+    setSelectedDistrict(selectedValue)
+  }
+
   return (
     <div className={styles.simpleCalculatorContainer}>
       <Selection
         sugIndicatorValue={sugIndicatorValue}
         handleTypeChange={handleTypeChange}
         selectedType={selectedType}
+        selectedDistrict={selectedDistrict}
+        handleDistrictChange={handleDistrictChange}
       />
       <Computation sugIndicatorValue={sugIndicatorValue} />
+      <Hints></Hints>
     </div>
   )
 }

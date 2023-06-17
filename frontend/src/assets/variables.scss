@@ -4,12 +4,17 @@ $dark_green: #008b38;
 $green: #38a636;
 $light_green2: #b4d421;
 $light_green1: #7eb42a;
+$white: #ffffff;
+$light_red: #ff9494;
+$light_gray: #eef2f4;
 
 $screen-sm-min: 600px;
 $screen-md-min: 768px;
 $screen-lg-min: 992px;
 $screen-xl-min: 1200px;
 $screen-xxl-min: 1500px;
+
+$navbar_height: 6.25rem;
 
 @mixin s {
   @media (max-width: #{$screen-sm-min}) {
@@ -70,4 +75,7 @@ $screen-xxl-min: 1500px;
   darkgreen: $dark_green;
   vlightgreen: $light_green2;
   lightgreen: $light_green1;
+  white: $white;
+  lightred: $light_red;
+  lightgray: $light_gray;
 }

@@ -1,12 +1,14 @@
 @import "../../../assets/variables.scss";
 
+$map_height: calc(100vh - $navbar_height);
+
 .mapContainer {
-  border: 2px solid $dark_grey;
-  width: 70rem;
+  height: $map_height;
+  width: 100vw;
   position: relative;
 }
 
 .map {
-  height: 50rem !important;
+  height: $map_height !important;
 }
 

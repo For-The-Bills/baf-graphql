@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import Computation from "./components/Computation"
 import Selection from "./components/Selection"
 import Hints from "./components/Hints"
+import Help from "./components/Help"
 
 import styles from "./SimpleCalculator.module.scss"
 import classNames from "classnames"
@@ -12,6 +13,7 @@ function SimpleCalculator(props) {
   const [sugIndicatorValue, setSugIndicatorValue] = useState(
     "Wybierz rodzaj zabudowy"
   )
+  const [selectedHelp, setSelectedHelp] = useState("")
 
   const indicatorDictionary = {
     mieszkaniowa: 0.6,
@@ -34,6 +36,10 @@ function SimpleCalculator(props) {
     setSelectedDistrict(selectedValue)
   }
 
+  const handleHelpChange = (name) => {
+    setSelectedHelp(name)
+  }
+
   return (
     <div className={styles.simpleCalculatorContainer}>
       <div className={classNames(styles.section, styles.leftSection)}>
@@ -43,13 +49,20 @@ function SimpleCalculator(props) {
           selectedType={selectedType}
           selectedDistrict={selectedDistrict}
           handleDistrictChange={handleDistrictChange}
+          handleHelpChange={handleHelpChange}
         />
       </div>
       <div className={classNames(styles.section, styles.middleSection)}>
-        <Computation sugIndicatorValue={sugIndicatorValue} />
+        <Computation
+          sugIndicatorValue={sugIndicatorValue}
+          handleHelpChange={handleHelpChange}
+        />
       </div>
       <div className={classNames(styles.section, styles.rightSection)}>
-        <Hints></Hints>
+        <Help
+          selectedHelp={selectedHelp}
+          handleHelpChange={handleHelpChange}
+        ></Help>
       </div>
     </div>
   )

@@ -126,7 +126,7 @@ function Editor(props) {
 
       <div className={styles.layers}>
         <div className={styles.buttons}>
-          <Button
+          <LoadingButton
             onClick={handleModalOpen}
             startIcon={<AddIcon />}
             fullWidth
@@ -135,7 +135,7 @@ function Editor(props) {
             disabled={currentSelectionIndex != -1}
           >
             Dodaj warstwę
-          </Button>
+          </LoadingButton>
         </div>
 
         <div className={styles.items}>
@@ -148,7 +148,7 @@ function Editor(props) {
         </div>
 
         <div className={styles.calc}>
-                
+
         </div>
 
       </div>

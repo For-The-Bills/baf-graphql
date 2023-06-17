@@ -1837,7 +1837,7 @@
 
 "@mui/material@^5.13.5":
   version "5.13.5"
-  resolved "https://registry.npmjs.org/@mui/material/-/material-5.13.5.tgz"
+  resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.13.5.tgz#c14f14824f3a37ae0c5ebddbc0034956bc6fec30"
   integrity sha512-eMay+Ue1OYXOFMQA5Aau7qbAa/kWHLAyi0McsbPTWssCbGehqkF6CIdPsfVGw6tlO+xPee1hUitphHJNL3xpOQ==
   dependencies:
     "@babel/runtime" "^7.21.0"
@@ -1864,7 +1864,7 @@
 
 "@mui/styled-engine-sc@^5.12.0":
   version "5.12.0"
-  resolved "https://registry.npmjs.org/@mui/styled-engine-sc/-/styled-engine-sc-5.12.0.tgz"
+  resolved "https://registry.yarnpkg.com/@mui/styled-engine-sc/-/styled-engine-sc-5.12.0.tgz#41040fb27667efab46e9200cec9657e62b544c48"
   integrity sha512-3MgYoY2YG5tx0E5oKqvCv94oL0ABVBr+qpcyvciXW/v0wzPG6bXvuZV80GHYlJfasgnnRa1AbRWf5a9FcX8v6g==
   dependencies:
     "@babel/runtime" "^7.21.0"
@@ -10349,7 +10349,7 @@ style-loader@^3.3.1:
 
 styled-components@^6.0.0-rc.3:
   version "6.0.0-rc.3"
-  resolved "https://registry.npmjs.org/styled-components/-/styled-components-6.0.0-rc.3.tgz"
+  resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-6.0.0-rc.3.tgz#2c9f7304c3177a9ca90925c4944465e499c422a6"
   integrity sha512-5FbCTxynopck99GRwM5Ey0+VRp8pkQq69TwGOJJeYtR7gPvwGjNx8yBPLN7/dfxwwvn9ymOZYB19eQkv2k70wQ==
   dependencies:
     "@babel/cli" "^7.21.0"

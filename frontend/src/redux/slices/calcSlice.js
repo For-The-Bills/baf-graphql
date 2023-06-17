@@ -1,10 +1,7 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import API from "../../API/apiService";
-import { toast } from "react-toastify";
-import Cookie from "js-cookie";
-import { history } from "../../index.jsx";
+
 import { emmitError, emmitSuccess } from "../../utils/ToastEmmiter";
-import { feature, polygon, area } from '@turf/turf';
 import LatLon from 'geodesy/latlon-spherical';
 
 export const getParcelByCoordinates = createAsyncThunk(

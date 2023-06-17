@@ -29,7 +29,6 @@ const theme = createTheme({
     },
     red: {
       main: variables.red,
-      contrastText: '#ffffff'
     }
   },
   components: {

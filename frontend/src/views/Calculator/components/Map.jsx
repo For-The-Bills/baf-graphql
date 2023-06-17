@@ -166,11 +166,12 @@ function MapComponent(props) {
       const { lat, lng } = e.latlng;
       console.log(e.latlng);
       if (!parcelSelected) dispatch(getParcelByCoordinates({ x: lat, y: lng }));
-      if(currentSelectionIndex != -1 && inside([lat,lng], editorData.coords)) {
-
-        dispatch(addNewMarker([lat, lng]))
-      }else{
-        emmitError('Wybrane punkt nie jest w obszarze działki')
+      if(currentSelectionIndex != -1) {
+        if (inside([lat,lng], editorData.coords)){
+          dispatch(addNewMarker([lat, lng]))
+        }else{
+          emmitError('Wybrane punkt nie jest w obszarze działki')
+        }
       }
     },
     drag: () => {

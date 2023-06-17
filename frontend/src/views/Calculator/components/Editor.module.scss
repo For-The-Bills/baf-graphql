@@ -6,8 +6,6 @@
   width: 25rem;
   border: 2px solid $dark_grey;
 
- 
-
   .header {
     display: flex;
     flex-direction: column;
@@ -51,5 +49,41 @@
       flex-direction: column;
       padding: 0.5rem;
     }
+  }
+}
+
+.additionModalBody {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+  .inputs {
+    display: flex;
+    width: 90%;
+    gap: 1rem;
+    margin: 2rem 0 1rem 0;
+    justify-content: space-around;
+    .surfaceTypeSelection{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.2rem;
+      .currentColorContainer{
+        width: 3rem;
+        height: 3rem;
+        border: 2px solid $border_grey;
+      }
+
+    }
+    .surfaceOwnName{
+      width: 100%;
+    }
+  }
+  .buttons {
+    display: flex;
+    gap: 0.625rem;
   }
 }

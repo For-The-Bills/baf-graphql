@@ -26,6 +26,10 @@ const theme = createTheme({
     },
     light: {
       main: variables.vlightgreen
+    },
+    red: {
+      main: variables.red,
+      contrastText: '#ffffff'
     }
   },
   components: {
@@ -51,6 +55,15 @@ const theme = createTheme({
         },
       },
     },
+
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 0,
+        },
+      },
+    },
+    
     MuiOutlinedInput: {
       styleOverrides: {
         root: {

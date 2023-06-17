@@ -372,7 +372,7 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
             icon={<PersonRoundedIcon style={{ fontSize: 40 }} />}
             width={150}
             height={150}
-            onClick={() => console.log("Test")}
+            onClick={() => console.log("Funkcjonalność nieobecna w prototypie")}
           />
           <div className={styles.totalBafContainer}>
             <div className={styles.totalBafBox}>
@@ -405,7 +405,7 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
             icon={<ArchitectureRoundedIcon style={{ fontSize: 40 }} />}
             width={150}
             height={150}
-            onClick={() => console.log("Test2")}
+            onClick={() => handleHelpChange("porady dla projektanta")}
           />
         </div>
       </Fade>

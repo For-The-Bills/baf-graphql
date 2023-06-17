@@ -11,6 +11,9 @@ import {
   AccordionSummary,
   AccordionDetails,
   Typography,
+  List,
+  ListItem,
+  ListItemText,
 } from "@mui/material"
 
 const surfaces = [
@@ -140,6 +143,22 @@ const dictionary = {
     title: "Wartość BAF",
     description:
       "Opis wartości BAF... Wartość BAF to iloraz całkowitej powierzchni BAF i całkowitej powierzchni działki",
+  },
+  "porady dla projektanta": {
+    title: "Porady dla projektanta",
+    description: (
+      <List>
+        <ListItem>
+          <ListItemText primary="Test1" secondary="Subtest1" />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Test2" />
+        </ListItem>
+        <ListItem>
+          <ListItemText primary="Test3" />
+        </ListItem>
+      </List>
+    ),
   },
 }
 

@@ -1,10 +1,42 @@
-@import '../../../assets/variables.scss';
+@import "../../../assets/variables.scss";
 
-.mapContainer{
-    border: 2px solid $border_grey;
-    width: 800px;
-}
+.computationContainer {
+  .rowBaf {
+    font-weight: 500;
+  }
 
-.map{
-    height: 600px !important;
+  .rowTotalArea {
+    font-weight: 900;
+    font-size: 24px;
+  }
+
+  .rowTotalBaf {
+    font-weight: 900;
+    font-size: 24px;
+  }
+
+  .totalBafContainer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .totalBafBox {
+    width: 200px;
+    height: 100px;
+    border: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .totalBafLabel {
+      margin: 0;
+      margin-top: 1rem;
+    }
+
+    .totalBafValue {
+      font-weight: 900;
+      font-size: 24px;
+    }
+  }
 }

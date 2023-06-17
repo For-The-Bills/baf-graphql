@@ -4,11 +4,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   .typeOfBuildingContainer {
     width: 500px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .bafIndicator {
+    font-size: 20;
+    font-weight: 800;
   }
 }

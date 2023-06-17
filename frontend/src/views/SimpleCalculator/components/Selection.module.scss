@@ -49,17 +49,18 @@
     // justify-content: space-between;
     // align-items: center;
   }
+}
 
-  .arrow {
+.arrow {
+  color: $dark_green;
+
+  .arrowIcon {
     color: $dark_green;
-
-    .arrowIcon {
-      color: $dark_green;
-    }
   }
+}
 
-  .bafIndicator {
-    font-size: 20;
-    font-weight: 800;
-  }
+.bafIndicator {
+  font-size: 20;
+  font-weight: 900;
+  text-align: center;
 }

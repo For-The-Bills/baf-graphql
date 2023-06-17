@@ -5,18 +5,85 @@ import { Slide, Fade } from "react-awesome-reveal"
 import { IconButton } from "@mui/material"
 
 import HelpIcon from "@mui/icons-material/Help"
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+} from "@mui/material"
+
+const surfaces = [
+  {
+    category: "Powierzchnie szczelne (nieprzepuszczalne)",
+    items: [
+      { name: "Asfalt", value: "0" },
+      { name: "Beton", value: "0" },
+      { name: "Kamień", value: "0" },
+    ],
+  },
+  {
+    category: "Powierzchnie półprzepuszczalne",
+    items: [
+      { name: "Żwir, grys", value: "0.5" },
+      { name: "Płyta ażurowa betonowa", value: "0.5" },
+      { name: "Kruszywa łączone żywicą", value: "0.5" },
+      { name: "Inne materiały sypkie", value: "0.5" },
+    ],
+  },
+  {
+    category: "Powierzchnie perforowane",
+    items: [
+      { name: "Nawierzchnia mineralno-żywiczna", value: "0.3" },
+      { name: "Kostka brukowa z przestrzeniami dylatacyjnymi", value: "0.3" },
+    ],
+  },
+  {
+    category: "Powierzchnie przepuszczalne",
+    items: [{ name: "Geokrata (geosiatka komórkowa)", value: "1" }],
+  },
+  {
+    category: "Pozostałe",
+    items: [
+      { name: "Zabudowa", value: "0" },
+      { name: "Drzewo (pow. odkryta pod koroną, m2)", value: "1" },
+      { name: "Krzew (pow. odkryta pod krzewem, m2)", value: "0.7" },
+      { name: "Łąka kwietna", value: "0.7" },
+      { name: "Trawa (murawa)", value: "0.3" },
+      { name: "Dachy zielone", value: "0.7" },
+      { name: "Ściany zielone", value: "0.5" },
+      { name: "Rośliny pnące (na 1m2 powierzchni)", value: "0.3" },
+      { name: "Ogród deszczowy (na 1m2)", value: "0.7" },
+    ],
+  },
+]
 
 const dictionary = {
   kalkulator: {
     title: "Kalkulator",
-    description: "Opis kalkulatora...",
+    description: (
+      <p>
+        Opis kalkulatora...
+        <br></br>
+        <br></br>
+        Przykład 1: Działka, którą rozpatrujemy ma powierzchnię 200m2.
+        Inwestycja polega na wybudowaniu budynku jednorodzinnego, podjazdu,
+        zasadzeniu trawnika i 1 drzewa, którego powierzchnia pod koroną będzie
+        wynosić 2m2. BAF to iloczyn powierzchni i współczynnika wyznaczonego
+        podczas pracy z ekspertami. Przy jego opracowaniu będzie brana pod uwagę
+        przepuszczalność powierzchni, bioróżnorodność, ranga elementu
+        przyrodniczego itd. Końcowa wartość BAF to iloraz całkowitej powierzchni
+        BAF, powstającej po zsumowaniu wyliczonej powierzchni biotopu i
+        całkowitej powierzchni działki.
+      </p>
+    ),
   },
   konfiguracja: {
     title: "Konfiguracja",
     description: (
       <p>
         W sekcji konfiguracja wybiera się "Rodzaj zabudowy" oraz "Obręb miasta"
-        w celu sprawdzenia jaki jest wymagana wskaźnik BAF dla wybranego rodzaju
+        w celu sprawdzenia jaka jest wymagana wartość BAF dla wybranego rodzaju
         inwestycji w wybranym obrębie miasta.<br></br>
         <br></br>
         Wymagana wartość jest różna w zależności od funkcji danego terenu - inna
@@ -37,19 +104,42 @@ const dictionary = {
   },
   "forma zagospodarowania": {
     title: "Forma zagospodarowania",
-    description: "Opis formy zagospodarowania...",
+    description: (
+      <div>
+        <p>
+          Forma zagospodarowania to różne elementy, które znajdują się na twojej
+          działce. Poniżej wypisane są kategorie form zagospodarowań wraz z
+          przykładami oraz korespendującymi im współczynnikami:
+        </p>
+        {surfaces.map((surface, index) => (
+          <Accordion key={index}>
+            <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>{surface.category}</Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              <ul>
+                {surface.items.map((item, itemIndex) => (
+                  <li key={itemIndex}>
+                    <Typography>
+                      {item.name}: {item.value}
+                    </Typography>
+                  </li>
+                ))}
+              </ul>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </div>
+    ),
   },
   współczynnik: {
     title: "Współczynnik",
     description: "Opis współczynnika...",
   },
-  współczynnik: {
-    title: "Współczynnik",
-    description: "Opis współczynnika...",
-  },
-  współczynnik: {
+  "wartość baf": {
     title: "Wartość BAF",
-    description: "Opis współczynnika...",
+    description:
+      "Opis wartości BAF... Wartość BAF to iloraz całkowitej powierzchni BAF i całkowitej powierzchni działki",
   },
 }
 

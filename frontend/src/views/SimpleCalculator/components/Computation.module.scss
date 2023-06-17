@@ -2,8 +2,6 @@
 
 .computationContainer {
   height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
 
   .singleRow {
     width: 100%;
@@ -31,6 +29,12 @@
 
   .sectionTitleText {
     margin-right: 0.5rem;
+  }
+
+  .sectionContent {
+    height: 90%;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .rowBaf {

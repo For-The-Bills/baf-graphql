@@ -15,6 +15,7 @@ import Modal from "../../components/Modal/Modal";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { useDispatch, useSelector } from "react-redux";
 import Editor from "./components/Editor";
+import Searchbar from "./components/Searchbar";
 
 function Calculator(props) {
   const infoModalState = useSelector(selectInfoModal);
@@ -71,6 +72,7 @@ function Calculator(props) {
     <div className={styles.calculatorContainer}>
       <Map />
       {parcelSelected && <Editor />}
+      {!parcelSelected && <Searchbar />}
       {confirmationModal}
     </div>
   );

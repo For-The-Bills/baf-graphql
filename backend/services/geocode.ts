@@ -16,11 +16,11 @@ async function fetchGeocode(endpoint:string) {
 
 async function getCoordsByAddresss(address: string){
     const result = await fetchGeocode(`search?q=${address}`)
-
-    if (result.length == 0) return {error: 'error'}
-    const x = result[0].lat
-    const y = result[0].lon
-    return{x: x, y: y}
+    console.log(result)
+    if (result.length == 0) return [-1,-1]
+    const x = parseFloat(result[0].lat)
+    const y = parseFloat(result[0].lon)
+    return[x,y]
 }
 
 export {

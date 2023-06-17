@@ -33,11 +33,12 @@ function fetchGeocode(endpoint) {
 function getCoordsByAddresss(address) {
     return __awaiter(this, void 0, void 0, function* () {
         const result = yield fetchGeocode(`search?q=${address}`);
+        console.log(result);
         if (result.length == 0)
-            return { error: 'error' };
-        const x = result[0].lat;
-        const y = result[0].lon;
-        return { x: x, y: y };
+            return [-1, -1];
+        const x = parseFloat(result[0].lat);
+        const y = parseFloat(result[0].lon);
+        return [x, y];
     });
 }
 exports.getCoordsByAddresss = getCoordsByAddresss;

@@ -34,8 +34,35 @@ export const getParcelShape = createAsyncThunk(
   }
 );
 
+export const getParcelShapeByName = createAsyncThunk(
+  "calc/getParcelShapeByName",
+  async({region, number}, { rejectWithValue }) => {
+    return await API.get(`/location/shape?parcelRegion=${region}&parcelNumber=${number}`)
+      .then((res) => {
+        console.log(res);
+        return res.data;
+      })
+      .catch((err) => {
+        throw rejectWithValue(err.response);
+      });
+  })
+
+  export const getAddressCoordinates = createAsyncThunk(
+    "calc/getAddressCoordinates",
+    async({address}, { rejectWithValue }) => {
+      return await API.get(`/location/by_address?address=${address}`)
+        .then((res) => {
+          console.log(res);
+          return res.data;
+        })
+        .catch((err) => {
+          throw rejectWithValue(err.response);
+        });
+    })
+  
+
 function calculateArea(coordinates) {
-  const latLons = coordinates.map(([lon, lat]) => new LatLon(lat, lon));
+  const latLons = coordinates.map(([lat, lon]) => new LatLon(lat, lon));
 
   const areaInSquareMeters = LatLon.areaOf(latLons);
 
@@ -129,7 +156,8 @@ export const calcSlice = createSlice({
         color: "#0600ad"
       }
     },
-    currentlySelectedLayerIndex: -1
+    currentlySelectedLayerIndex: -1,
+    zoomToCoords: [0,0]
   },
   reducers: {
     clearParcelData: (state) => {
@@ -151,6 +179,7 @@ export const calcSlice = createSlice({
       state.additionModal = true;
     },
     addNewLayer: (state, action) => {
+
       state.currentlySelectedLayerIndex = state.editorData.layers.length;
       state.editorData.layers.push(action.payload);
       state.additionModal = false;
@@ -159,6 +188,10 @@ export const calcSlice = createSlice({
       state.editorData.layers[state.currentlySelectedLayerIndex].polygon.push(action.payload);
     },
     completeLayer: (state) => {
+      if(state.editorData.layers[state.currentlySelectedLayerIndex].polygon.length < 3) {
+        emmitError('Za mało punktów na warstwie');
+        return;
+      }
       const poly = current(state.editorData.layers[state.currentlySelectedLayerIndex].polygon);
       console.log(poly)
       const a = calculateArea([...poly, poly[0]])
@@ -170,6 +203,9 @@ export const calcSlice = createSlice({
       console.log(action.payload)
       state.editorData.layers = state.editorData.layers.filter((_, index) => index != action.payload);
       state.currentlySelectedLayerIndex = -1;
+    },
+    redoMarker: (state) => {
+      state.editorData.layers[state.currentlySelectedLayerIndex].polygon.pop();
     }
   },
   extraReducers: (builder) => {
@@ -207,6 +243,46 @@ export const calcSlice = createSlice({
 
       emmitError(action.payload.data.error);
     });
+
+
+    builder.addCase(getParcelShapeByName.pending, (state, action) => {
+      state.parcelLoading = true;
+    });
+
+    builder.addCase(getParcelShapeByName.fulfilled, (state, action) => {
+      state.parcelLoading = false;
+      state.editorData = {coords: action.payload.coords, polygon_center: action.payload.polygon_center, max_bounds: action.payload.max_bounds, layers:[]};
+      state.parcelData = {
+        parcelNumber: action.payload.parcelNumber,
+        parcelRegion: action.payload.parcelRegion,
+      };
+      state.parcelSelected = true;
+      state.infoModal = false;
+      state.mapPositionCenter = action.payload.polygon_center.reverse();
+    })
+
+    builder.addCase(getParcelShapeByName.rejected, (state, action) => {
+      state.parcelLoading = false;
+      state.editorData = {};
+      state.parcelSelected = false;
+
+      emmitError(action.payload.data.error);
+    })
+
+    builder.addCase(getAddressCoordinates.pending, (state, action) => {
+      state.parcelLoading = true;
+    })
+
+    builder.addCase(getAddressCoordinates.fulfilled, (state, action) => {
+      state.parcelLoading = false;
+      state.zoomToCoords = action.payload;
+    })
+
+    builder.addCase(getAddressCoordinates.rejected, (state, action) => {
+      state.parcelLoading = false;
+      emmitError(action.payload.data.error);
+    })
+
   },
 });
 
@@ -220,7 +296,8 @@ export const {
   addNewLayer,
   addNewMarker,
   completeLayer,
-  removeLayer
+  removeLayer,
+  redoMarker
 } = actions;
 
 export const selectParcelData = (state) => state.calc.parcelData;
@@ -234,5 +311,6 @@ export const selectAdditionModalState = (state) => state.calc.additionModal;
 export const selectSurfaces = (state) => state.calc.surfaces;
 export const selectCurrentlySelectedLayerIndex = (state) => state.calc.currentlySelectedLayerIndex;
 export const selectIndicators = (state) => state.calc.indicators;
+export const selectZoomToCoords = (state) => state.calc.zoomToCoords;
 
 export default reducer;

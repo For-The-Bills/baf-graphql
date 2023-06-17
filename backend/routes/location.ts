@@ -29,7 +29,9 @@ router.get('/by_coordinates', async (req, res, next) => {
 router.get('/shape', async (req, res, next) => {
     const { lat, lng, parcelRegion, parcelNumber} = req.query
     try {
-        const result = (typeof(parcelRegion) != 'undefined' ? await getParcelWKTbyName(parcelRegion, parcelNumber) : await getParcelWKT(lng, lat))
+        const by_name = typeof(parcelRegion) != 'undefined'
+        console.log(req.query)
+        const result = (by_name ? await getParcelWKTbyName(parcelRegion, parcelNumber) : await getParcelWKT(lng, lat))
         if (result.parcelWKT == -1) return res.status(400).json({ error: 'Nie znaleziono działki' })
         //POLYGON((...))
         console.log(result)
@@ -48,8 +50,9 @@ router.get('/shape', async (req, res, next) => {
 
         const polygon_center = calculatePolygonCenter(parsed)
         const max_bounds = calculatePolygonBounds(parsed)
-        
-        return res.status(200).json({ coords: parsed, polygon_center, max_bounds })
+        const name_info = by_name ? {parcelRegion, parcelNumber} : {}
+
+        return res.status(200).json({ coords: parsed, polygon_center, max_bounds, ...name_info })
     } catch (error) {
         next(error)
     }
@@ -57,11 +60,9 @@ router.get('/shape', async (req, res, next) => {
 
 router.get('/by_address', async (req, res, next) => {
     const {address} = req.query;
-
     try {
         const result = await getCoordsByAddresss(address)
-
-        if (result.error == 'error') return res.status(400).json({ error: 'Niepoprawny adres' })
+        if (result[0] == -1) return res.status(400).json({ error: 'Niepoprawny adres' })
         return res.status(200).json(result)
     } catch (error) {
         next(error)

@@ -14,6 +14,36 @@ $editor_width: 25rem;
   right: 0;
   top: 0;
 
+  .redoButton {
+    position: absolute;
+    top: 1.3rem;
+    right: $editor_width;
+    height: 3rem;
+    width: 3rem;
+    background-color: $light_green1;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 951;
+    cursor: pointer;
+
+    -webkit-animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
+      both;
+    animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+
+    &:hover {
+      background-color: $light_green2;
+      transition: 0.3s;
+    }
+
+    &:active {
+      background-color: white;
+      color: black;
+      transition: 0.05s;
+    }
+  }
+
   -webkit-animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)
     both;
   animation: slide-in-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -71,23 +101,23 @@ $editor_width: 25rem;
       height: 50rem;
     }
 
-    .calc{
+    .calc {
       display: flex;
       flex-direction: column;
-      
-      .type{
+
+      .type {
         display: flex;
         justify-content: center;
         align-items: center;
         border-top: 2px $border_grey solid;
         padding: 0.7rem 0;
         color: white;
-        .select{
+        .select {
           background-color: $white !important;
         }
       }
 
-      .calcHeader{
+      .calcHeader {
         background-color: $border_grey;
         color: white;
         display: flex;
@@ -95,26 +125,22 @@ $editor_width: 25rem;
         align-items: center;
         padding: 0.8rem 0;
       }
-      .outcome{
-        display:flex;
+      .outcome {
+        display: flex;
         justify-content: center;
         align-items: center;
         font-size: 3rem;
         font-weight: 500;
         gap: 1rem;
-        .left{
-          
+        .left {
         }
 
-        .divider{
-          
+        .divider {
         }
 
-        .right{
-
+        .right {
         }
       }
-
     }
   }
 }
@@ -177,5 +203,26 @@ $editor_width: 25rem;
     -webkit-right: translateX(0);
     right: translateX(0);
     opacity: 1;
+  }
+}
+
+@-webkit-keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@keyframes scale-up-center {
+  0% {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }

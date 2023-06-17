@@ -11,6 +11,7 @@ import {
   selectCurrentlySelectedLayerIndex,
   selectIndicators,
   clearParcelData,
+  redoMarker,
 } from "../../../redux/slices/calcSlice";
 import styles from "./Editor.module.scss";
 import Button from "@mui/material/Button";
@@ -28,8 +29,9 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import CloseIcon from '@mui/icons-material/Close';
-import variables from '../../../assets/variables.scss'
+import CloseIcon from "@mui/icons-material/Close";
+import variables from "../../../assets/variables.scss";
+import UndoIcon from "@mui/icons-material/Undo";
 
 function Editor(props) {
   const editorData = useSelector(selectEditorData);
@@ -51,6 +53,10 @@ function Editor(props) {
     Object.keys(indicators).length > 0 ? Object.keys(indicators)[0] : ""
   );
 
+    const handleRedoMarker = () => {
+        dispatch(redoMarker())
+    }
+
   const handleModalOpen = () => {
     dispatch(openAdditionModal());
   };
@@ -62,6 +68,10 @@ function Editor(props) {
   const handleModalClose = () => {
     dispatch(closeAdditionModal());
   };
+
+  useEffect(() => {
+    setLocalSurfaceOwnName("");
+  }, [additionModalState]);
 
   const handleAddLayer = () => {
     dispatch(
@@ -75,8 +85,8 @@ function Editor(props) {
   };
 
   const handleDeselectParcel = () => {
-    dispatch(clearParcelData())
-  }
+    dispatch(clearParcelData());
+  };
 
   const handleSelectChange = (event) => {
     console.log(event.target);
@@ -162,11 +172,16 @@ function Editor(props) {
 
   return (
     <div className={styles.editorContainer}>
+      {currentSelectionIndex != -1 && editorData.layers[currentSelectionIndex] && editorData.layers[currentSelectionIndex].polygon.length > 0 && (
+        <div onClick={handleRedoMarker} className={styles.redoButton}>
+          <UndoIcon />
+        </div>
+      )}
       <div className={styles.header}>
         <div className={styles.intro}>
           Wybrana działka
           <IconButton onClick={handleDeselectParcel}>
-            <CloseIcon color='light' fontSize="inherit" />
+            <CloseIcon color="light" fontSize="inherit" />
           </IconButton>
         </div>
         <div className={styles.parcelInfo}>
@@ -213,7 +228,20 @@ function Editor(props) {
             </FormControl>
           </div>
 
-          <div style={{backgroundColor: localBAF > (indicators[localIndicatorSelection] ? indicators[localIndicatorSelection] : 0) ? variables.green : variables.light_red}} className={styles.calcHeader}>Wskaźnik BAF</div>
+          <div
+            style={{
+              backgroundColor:
+                localBAF >
+                (indicators[localIndicatorSelection]
+                  ? indicators[localIndicatorSelection]
+                  : 0)
+                  ? variables.green
+                  : variables.light_red,
+            }}
+            className={styles.calcHeader}
+          >
+            Wskaźnik BAF
+          </div>
           <div className={styles.outcome}>
             <div className={styles.left}>{localBAF ? localBAF : 0}</div>
             <div className={styles.divider}>

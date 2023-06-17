@@ -61,6 +61,34 @@ const surfaces = [
   },
 ]
 
+const tips = [
+  {
+    name: 'Drzewa',
+    description: (<>
+      przeznaczenie 50 m<sup>2</sup> powierzchni działki na drzewa znacznie poprawi bilans biologiczny działki
+    </>)
+  },
+  {
+    name: 'Krzewy',
+    description: (<>
+      przeznaczenie 100 m<sup>2</sup> powierzchni działki na krzewy znacznie poprawi bilans biologiczny działki
+    </>)
+  },
+  {
+    name: 'Łąka kwietna',
+    description: (<>
+      przeznaczenie 40 m<sup>2</sup> powierzchni działki na łąki kwietne znacznie poprawi bilans biologiczny działki
+    </>)
+  },
+  {
+    name: 'Dachy zielone',
+    description: (<>
+      wykorzystanie 100 m<sup>2</sup> powierzchni dachów zabudowy jako zielone dachy znacznie poprawi bilans biologiczny działki 
+    </>)
+  }
+]
+
+
 const dictionary = {
   kalkulator: {
     title: "Kalkulator",
@@ -147,17 +175,21 @@ const dictionary = {
   "porady dla projektanta": {
     title: "Porady dla projektanta",
     description: (
+      <div>
+        <div className={styles.tipTitle}>
+          Aby uzyskać odpowiednią wartość BAF, proponujemy:
+        </div>
       <List>
-        <ListItem>
-          <ListItemText primary="Test1" secondary="Subtest1" />
+
+        {tips.map((tip, index) => (
+          <ListItem>
+          <ListItemText primary={tip.name} secondary={tip.description} />
         </ListItem>
-        <ListItem>
-          <ListItemText primary="Test2" />
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Test3" />
-        </ListItem>
+        ))}
+
+        
       </List>
+      </div>
     ),
   },
 }

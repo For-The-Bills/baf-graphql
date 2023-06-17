@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import styles from "./Selection.module.scss"
 import { Slide, Fade } from "react-awesome-reveal"
 
-import { InputLabel, MenuItem, Select } from "@mui/material"
+import { InputLabel, MenuItem, Select, IconButton } from "@mui/material"
 import FormControl from "@mui/material/FormControl"
 import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded"
 
@@ -16,13 +16,22 @@ function Selection({
   selectedType,
   selectedDistrict,
   handleDistrictChange,
+  handleHelpChange,
 }) {
   return (
     <div className={styles.centerBox}>
       <Slide direction="left" triggerOnce={true}>
         <div className={styles.sectionTitle}>
           <p className={styles.sectionTitleText}>Konfiguracja</p>
-          <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+
+          <IconButton
+            tooltip="Wyświetl pomoc"
+            onClick={() => {
+              handleHelpChange("konfiguracja")
+            }}
+          >
+            <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+          </IconButton>
         </div>
         <div className={styles.selectionWrapper}>
           <div className={styles.selectionContainer}>

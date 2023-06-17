@@ -37,31 +37,22 @@ const Help = ({ selectedHelp, handleHelpChange }) => {
     <div className={styles.help}>
       <div className={styles.sectionTitle}>
         <p className={styles.sectionTitleText}>Pomoc</p>
-        <IconButton
-          tooltip="Wyświetl pomoc"
-          onClick={() => {
-            handleHelpChange("kalkulator")
-          }}
-        >
-          <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
-        </IconButton>
       </div>
-      <div className={styles.helpContent}>
-        {isEmpty ? (
-          <>
-            <div className={styles.icon}>?</div>
-            <div className={styles.message}>
-              Kliknij ikonę znaku zapytania aby otrzymać informację o tym
-              temacie
-            </div>
-          </>
-        ) : (
-          <>
-            <div className={styles.title}>{selectedTerm.title}</div>
-            <div className={styles.description}>{selectedTerm.description}</div>
-          </>
-        )}
-      </div>
+      {isEmpty ? (
+        <div className={styles.helpHint}>
+          <div className={styles.icon}>?</div>
+          <div className={styles.message}>
+            Kliknij ikonę znaku zapytania aby otrzymać informację o danym
+            temacie
+          </div>
+        </div>
+      ) : (
+        <div className={styles.helpSelectedTerm}>
+          <div className={styles.title}>{selectedTerm.title}</div>
+          <div className={styles.divider}></div>
+          <div className={styles.description}>{selectedTerm.description}</div>
+        </div>
+      )}
     </div>
   )
 }

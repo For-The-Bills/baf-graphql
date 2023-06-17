@@ -15,6 +15,7 @@ import {
   TextField,
   MenuItem,
   IconButton,
+  Tooltip,
 } from "@mui/material"
 
 import PlantAnimation from "./PlantAnimation"
@@ -26,7 +27,8 @@ import ArchitectureRoundedIcon from "@mui/icons-material/ArchitectureRounded"
 
 import HelpIcon from "@mui/icons-material/Help"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
-
+import ContentCopyIcon from "@mui/icons-material/ContentCopy"
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever"
 
 const formZagospodarowaniaOptions = {
   "powierzchnie szczelne (nieprzepuszczalne)": 0,
@@ -169,32 +171,79 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
       <Fade delay={250} cascade damping={1e-1} triggerOnce={true}>
         <div className={styles.sectionTitle}>
           <p className={styles.sectionTitleText}>Kalkulator</p>
-          <IconButton
-            tooltip="Wyświetl pomoc"
-            onClick={() => {
-              handleHelpChange("kalkulator")
-            }}
-          >
-            <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
-          </IconButton>
+          <Tooltip title="Wyświetl pomoc">
+            <IconButton
+              onClick={() => {
+                handleHelpChange("kalkulator")
+              }}
+            >
+              <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+            </IconButton>
+          </Tooltip>
         </div>
         <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell style={{ width: "15%" }}>Nazwa</TableCell>
+                <TableCell style={{ width: "15%" }}>
+                  <div className={styles.singleRowName}>
+                    <p>Nazwa</p>
+                    <Tooltip title="Wyświetl pomoc">
+                      <IconButton
+                        tooltip="Wyświetl pomoc"
+                        onClick={() => {
+                          handleHelpChange("nazwa")
+                        }}
+                      >
+                        <HelpOutlineIcon
+                          style={{ fill: "#38a636", fontSize: 32 }}
+                        ></HelpOutlineIcon>
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                </TableCell>
                 <TableCell style={{ width: "35%" }}>
-                  Forma zagospodarowania
+                  <div className={styles.singleRowName}>
+                    <p>Forma zagospodarowania</p>
+                    <Tooltip title="Wyświetl pomoc">
+                      <IconButton
+                        tooltip="Wyświetl pomoc"
+                        onClick={() => {
+                          handleHelpChange("forma zagospodarowania")
+                        }}
+                      >
+                        <HelpOutlineIcon
+                          style={{ fill: "#38a636", fontSize: 32 }}
+                        ></HelpOutlineIcon>
+                      </IconButton>
+                    </Tooltip>
+                  </div>
                 </TableCell>
                 <TableCell style={{ width: "15%" }}>
                   Powierzchnia (m<sup>2</sup>)
                 </TableCell>
-                <TableCell style={{ width: "10%" }}>Współczynnik</TableCell>
+                <TableCell style={{ width: "10%" }}>
+                  <div className={styles.singleRowName}>
+                    <p>Współczynnik</p>
+                    <Tooltip title="Wyświetl pomoc">
+                      <IconButton
+                        tooltip="Wyświetl pomoc"
+                        onClick={() => {
+                          handleHelpChange("forma zagospodarowania")
+                        }}
+                      >
+                        <HelpOutlineIcon
+                          style={{ fill: "#38a636", fontSize: 32 }}
+                        ></HelpOutlineIcon>
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                </TableCell>
                 <TableCell style={{ width: "10%" }}>
                   BAF (m<sup>2</sup>)
                 </TableCell>
-                <TableCell style={{ width: "10%" }}></TableCell>
-                <TableCell style={{ width: "5%" }}></TableCell>
+                <TableCell style={{ width: "auto" }}></TableCell>
+                <TableCell style={{ width: "atuo" }}></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -262,20 +311,22 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
                       </p>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        variant="outlined"
-                        onClick={() => handleDuplicateRow(index)}
-                      >
-                        Duplikuj
-                      </Button>
+                      <Tooltip title="Duplikuj wiersz">
+                        <IconButton onClick={() => handleDuplicateRow(index)}>
+                          <ContentCopyIcon
+                            style={{ fill: "#38a636", fontSize: 32 }}
+                          ></ContentCopyIcon>
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
                     <TableCell>
-                      <Button
-                        variant="outlined"
-                        onClick={() => handleRemoveRow(index)}
-                      >
-                        Usuń
-                      </Button>
+                      <Tooltip title="Usuń wiersz">
+                        <IconButton onClick={() => handleRemoveRow(index)}>
+                          <DeleteForeverIcon
+                            style={{ fill: "#38a636", fontSize: 36 }}
+                          ></DeleteForeverIcon>
+                        </IconButton>
+                      </Tooltip>
                     </TableCell>
                   </motion.tr>
                 ))}

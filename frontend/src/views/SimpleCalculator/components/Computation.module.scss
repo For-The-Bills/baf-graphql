@@ -12,12 +12,10 @@
 
   .rowTotalArea {
     font-weight: 900;
-    font-size: 24px;
   }
 
   .rowTotalBaf {
     font-weight: 900;
-    font-size: 24px;
   }
 
   .totalBafContainer {
@@ -28,8 +26,9 @@
   }
 
   .totalBafBox {
+    margin-top: 20px;
     width: 400px;
-    height: 100px;
+    height: 150px;
     border: 2px solid $border_grey;
     display: flex;
     align-items: center;
@@ -38,12 +37,12 @@
 
     .totalBafLabel {
       margin: 0;
-      margin-top: 1rem;
+      margin-top: 2rem;
     }
 
     .totalBafValue {
       font-weight: 900;
-      font-size: 24px;
+      font-size: 38px;
     }
   }
 
@@ -65,18 +64,15 @@
   .totalBafUnderboxRed {
     background-color: $error_red;
     color: $white;
-    border: 2px solid red;
   }
 
   .totalBafUnderboxGreen {
     background-color: $dark_green;
     color: $white;
-    border: 2px solid $dark_green;
   }
 
   .totalBafUnderboxWhite {
     background-color: $white;
     color: $border_grey;
-    border: 2px solid $border_grey;
   }
 }

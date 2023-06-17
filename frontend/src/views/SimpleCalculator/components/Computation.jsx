@@ -2,6 +2,7 @@ import styles from "./Computation.module.scss"
 import React, { useState, useEffect } from "react"
 import { Slide, Fade } from "react-awesome-reveal"
 import { AnimatePresence, motion } from "framer-motion"
+import InputAdornment from "@mui/material/InputAdornment"
 
 import {
   Button,
@@ -125,7 +126,10 @@ const Computation = ({ sugIndicatorValue }) => {
     let totalBafUnderbox = styles.totalBafUnderbox
     if (sugIndicatorValue > bafFinalValue) {
       totalBafUnderbox += " " + styles.totalBafUnderboxRed
-    } else if (sugIndicatorValue !== "Wybierz rodzaj zabudowy") {
+    } else if (
+      sugIndicatorValue === "Wybierz rodzaj zabudowy" ||
+      isNaN(bafFinalValue)
+    ) {
       totalBafUnderbox += " " + styles.totalBafUnderboxWhite
     } else {
       totalBafUnderbox += " " + styles.totalBafUnderboxGreen
@@ -133,9 +137,24 @@ const Computation = ({ sugIndicatorValue }) => {
     return totalBafUnderbox
   }
 
+  const renderHintText = () => {
+    if (sugIndicatorValue > bafFinalValue) {
+      return "Twój BAF jest zbyt niski w porównaniu z sugerowanym BAF dla tego typu zabudowy"
+    } else {
+      console.log(bafFinalValue)
+      if (sugIndicatorValue === "Wybierz rodzaj zabudowy") {
+        return "Wybierz rodzaj zabudowy"
+      } else if (bafFinalValue === 0 || isNaN(bafFinalValue)) {
+        return "Uzupełnij tabele"
+      } else {
+        return "Twój BAF jest prawidłowy. Gratulacje!"
+      }
+    }
+  }
+
   return (
     <div className={styles.computationContainer}>
-      <Fade delay={250} cascade damping={1e-1}>
+      <Fade delay={250} cascade damping={1e-1} triggerOnce={true}>
         <TableContainer>
           <Table>
             <TableHead>
@@ -191,6 +210,9 @@ const Computation = ({ sugIndicatorValue }) => {
                       <TextField
                         type="number"
                         value={row.powierzchnia}
+                        endAdornment={
+                          <InputAdornment position="end">m2</InputAdornment>
+                        }
                         onChange={(event) =>
                           handlePowierzchniaChange(event, index)
                         }
@@ -230,15 +252,23 @@ const Computation = ({ sugIndicatorValue }) => {
                 ))}
               </AnimatePresence>
               <TableRow>
-                <TableCell></TableCell>
+                <TableCell>
+                  <Slide>
+                    <Button variant="contained" onClick={handleAddRow}>
+                      Dodaj wiersz
+                    </Button>
+                  </Slide>
+                </TableCell>
                 <TableCell></TableCell>
                 <TableCell>
+                  <p className={styles.rowTotalArea}>Powierzchnia całkowita:</p>
                   <p className={styles.rowTotalArea}>
                     {calculateTotalArea()?.toFixed(2)}
                   </p>
                 </TableCell>
                 <TableCell></TableCell>
                 <TableCell>
+                  <p className={styles.rowTotalBaf}>BAF całkowity:</p>
                   <p className={styles.rowTotalBaf}>
                     {isNaN(calculateTotalBAF())
                       ? "0.00"
@@ -246,18 +276,14 @@ const Computation = ({ sugIndicatorValue }) => {
                   </p>
                 </TableCell>
                 <TableCell></TableCell>
+                <TableCell></TableCell>
               </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
       </Fade>
-      <Slide>
-        <Button variant="contained" onClick={handleAddRow}>
-          Dodaj wiersz
-        </Button>
-      </Slide>
 
-      <Fade delay={750}>
+      <Fade delay={750} triggerOnce={true}>
         <div className={styles.totalBafContainer}>
           <div className={styles.totalBafBox}>
             <p className={styles.totalBafLabel}>Wartość BAF:</p>
@@ -266,18 +292,12 @@ const Computation = ({ sugIndicatorValue }) => {
             </p>
           </div>
           <div className={handleUnderboxColor()}>
-            <p className={styles.bafInfo}>
-              {sugIndicatorValue > bafFinalValue
-                ? "Twój BAF jest zbyt niski w porównaniu z sugerowanym BAF dla tego typu zabudowy"
-                : sugIndicatorValue === "Wybierz rodzaj zabudowy"
-                ? "Wybierz rodzaj zabudowy"
-                : "Twój BAF jest prawidłowy. Gratulacje!"}
-            </p>
+            <p className={styles.bafInfo}>{renderHintText()}</p>
           </div>
         </div>
       </Fade>
 
-      <Slide>
+      <Slide triggerOnce={true}>
         <PlantAnimation></PlantAnimation>
       </Slide>
     </div>

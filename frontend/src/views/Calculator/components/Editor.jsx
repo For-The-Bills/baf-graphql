@@ -131,7 +131,7 @@ function Editor(props) {
             startIcon={<AddIcon />}
             fullWidth
             color="primary"
-            variant="outlined"
+            variant="contained"
             disabled={currentSelectionIndex != -1}
           >
             Dodaj warstwę
@@ -146,6 +146,11 @@ function Editor(props) {
 
 
         </div>
+
+        <div className={styles.calc}>
+                
+        </div>
+
       </div>
 
       {additionModal}

@@ -151,19 +151,15 @@ function MapComponent(props) {
     // boundsOptions:{ noWrap: true }
     url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
     maxZoom: 20,
-    attribution:
-      "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
-  };
+      };
 
   return (
     <>
       <TileLayer {...satelite_options} />
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         {...tms_options}
       />
       <WMSTileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         {...wms_options}
       />
       {parcelSelected && editorData && editorData.coords.length > 0 && (

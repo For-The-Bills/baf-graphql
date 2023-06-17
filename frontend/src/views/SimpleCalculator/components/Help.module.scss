@@ -1,8 +1,13 @@
 @import "../../../assets/variables.scss";
 
+.helpContainer {
+  height: 100%;
+}
+
 .help {
   background-color: $light_gray;
-  height: 90%;
+  height: 99%;
+  overflow: hidden;
 }
 
 .sectionTitle {
@@ -42,6 +47,33 @@
 .helpSelectedTerm {
   display: block;
   margin: 5px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba($dark_green, 0.1);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark_green;
+    outline: 1px solid rgba($dark_green, 0.2);
+  }
+
+  @include s {
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: rgba($dark_green, 0.1);
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $dark_green;
+      outline: 1px solid rgba($dark_green, 0.2);
+    }
+  }
 
   .title {
     font-size: 24px;

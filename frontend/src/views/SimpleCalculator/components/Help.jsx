@@ -148,26 +148,28 @@ const Help = ({ selectedHelp, handleHelpChange }) => {
   const selectedTerm = dictionary[selectedHelp]
 
   return (
-    <div className={styles.help}>
-      <div className={styles.sectionTitle}>
-        <p className={styles.sectionTitleText}>Pomoc</p>
-      </div>
-      {isEmpty ? (
-        <div className={styles.helpHint}>
-          <div className={styles.icon}>?</div>
-          <div className={styles.message}>
-            Kliknij ikonę znaku zapytania aby otrzymać informację o danym
-            temacie
+    <Fade triggerOnce={true} className={styles.helpContainer}>
+      <div className={styles.help}>
+        <div className={styles.sectionTitle}>
+          <p className={styles.sectionTitleText}>Pomoc</p>
+        </div>
+        {isEmpty ? (
+          <div className={styles.helpHint}>
+            <div className={styles.icon}>?</div>
+            <div className={styles.message}>
+              Kliknij ikonę znaku zapytania aby otrzymać informację o danym
+              temacie
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className={styles.helpSelectedTerm}>
-          <div className={styles.title}>{selectedTerm.title}</div>
-          <div className={styles.divider}></div>
-          <div className={styles.description}>{selectedTerm.description}</div>
-        </div>
-      )}
-    </div>
+        ) : (
+          <div className={styles.helpSelectedTerm}>
+            <div className={styles.title}>{selectedTerm.title}</div>
+            <div className={styles.divider}></div>
+            <div className={styles.description}>{selectedTerm.description}</div>
+          </div>
+        )}
+      </div>
+    </Fade>
   )
 }
 

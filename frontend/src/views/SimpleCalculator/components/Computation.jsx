@@ -376,13 +376,13 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
           />
           <div className={styles.totalBafContainer}>
             <div className={styles.totalBafBox}>
-              <div>
+              <div className={styles.totalBafLabelContainer}>
                 <p className={styles.totalBafLabel}>Wartość BAF:</p>
                 <Tooltip title="Wyświetl pomoc">
                   <IconButton
                     tooltip="Wyświetl pomoc"
                     onClick={() => {
-                      handleHelpChange("forma zagospodarowania")
+                      handleHelpChange("wartość baf")
                     }}
                   >
                     <HelpOutlineIcon
@@ -409,10 +409,6 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
           />
         </div>
       </Fade>
-
-      {/* <Slide triggerOnce={true}>
-        <PlantAnimation></PlantAnimation>
-      </Slide> */}
     </div>
   )
 }

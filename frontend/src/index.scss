@@ -62,8 +62,6 @@ code {
     outline: 1px solid rgba($dark_grey, 0.2);
   }
 
-  overflow-x: hidden;
-
   @include s {
     &::-webkit-scrollbar {
       width: 0px;

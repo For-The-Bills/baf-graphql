@@ -21,9 +21,12 @@ const theme = createTheme({
     primary: {
       main: variables.green,
     },
-    // secondary: {
-    //   main: variables.orangered,
-    // }
+    secondary: {
+      main: variables.darkgreen,
+    },
+    light: {
+      main: variables.vlightgreen
+    }
   },
   components: {
     MuiLoadingButton: {

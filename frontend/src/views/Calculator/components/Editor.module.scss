@@ -1,0 +1,55 @@
+@import "../../../assets/variables.scss";
+
+.editorContainer {
+  display: flex;
+  flex-direction: column;
+  width: 25rem;
+  border: 2px solid $dark_grey;
+
+ 
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px solid $dark_grey;
+    .intro {
+      background-color: $border_grey;
+      color: white;
+      font-weight: 500;
+      padding: 0.5rem;
+    }
+
+    .parcelInfo {
+      background-color: white;
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      .parcelRegion {
+        color: $green;
+        font-weight: 600;
+        font-size: 1.125rem;
+      }
+
+      .parcelNumber {
+        color: $border_grey;
+        font-weight: 600;
+        font-size: 1.125rem;
+      }
+    }
+  }
+
+  .layers {
+    display: flex;
+    flex-direction: column;
+
+    .buttons {
+      display: flex;
+    }
+
+    .items {
+      display: flex;
+      flex-direction: column;
+      padding: 0.5rem;
+    }
+  }
+}

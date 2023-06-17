@@ -2,6 +2,34 @@
 
 .calculatorContainer{
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
+    gap: 2rem;
 }   
+
+
+
+
+.confirmationModalBody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0.5rem 0;
+    .parcelDataContainer {
+      gap: 1rem;
+      display: flex;
+      font-weight: 600;
+      font-size: 2rem;
+      .parcelRegion {
+        color: $green;
+      }
+      .parcelNumber {
+        color: $border_grey;
+      }
+    }
+    .buttons{
+      display: flex;
+      gap: 0.625rem;
+    }
+  }

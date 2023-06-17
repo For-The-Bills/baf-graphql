@@ -1,7 +1,9 @@
+import CircularProgress from '@mui/material/CircularProgress';
+import styles from './Loading.module.scss'
 function Loading(props){
     return(
-        <div>
-            loading
+        <div className={styles.loading}>
+            <CircularProgress color='light'/>
         </div>
     )
 }

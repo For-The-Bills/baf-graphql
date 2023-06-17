@@ -1,10 +1,12 @@
-@import '../../../assets/variables.scss';
+@import "../../../assets/variables.scss";
 
-.mapContainer{
-    border: 2px solid $border_grey;
-    width: 800px;
+.mapContainer {
+  border: 2px solid $dark_grey;
+  width: 70rem;
+  position: relative;
 }
 
-.map{
-    height: 600px !important;
+.map {
+  height: 50rem !important;
 }
+

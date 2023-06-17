@@ -7,6 +7,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const cors_1 = __importDefault(require("cors"));
+const location_1 = __importDefault(require("./routes/location"));
+const errorHandler_1 = require("./middleware/errorHandler");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -26,6 +28,8 @@ app.use((0, cors_1.default)(corsOptions));
 app.get('/', (req, res) => {
     res.send('Express + TypeScript Server');
 });
+app.use(errorHandler_1.errorHandler);
+app.use("/location", location_1.default);
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

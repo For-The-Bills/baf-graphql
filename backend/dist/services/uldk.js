@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getParcelWKT = exports.getParcelDataByCoordinates = void 0;
+exports.getParcelWKTbyName = exports.getParcelWKT = exports.getParcelDataByCoordinates = void 0;
 const node_fetch_1 = __importDefault(require("node-fetch"));
 function fetchULDK(endpoint) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -51,3 +51,13 @@ function getParcelWKT(x, y) {
     });
 }
 exports.getParcelWKT = getParcelWKT;
+function getParcelWKTbyName(parcelRegion, parcelNumber) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const regionAndNumber = parcelRegion + ' ' + parcelNumber;
+        const parcelWKT = yield fetchULDK(`?request=GetParcelByIdOrNr&id=${regionAndNumber}&result=geom_wkt`);
+        if (parcelWKT == 'error')
+            return { parcelWKT: -1 };
+        return { parcelWKT: parcelWKT.split(';')[1] };
+    });
+}
+exports.getParcelWKTbyName = getParcelWKTbyName;

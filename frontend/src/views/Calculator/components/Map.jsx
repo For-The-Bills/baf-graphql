@@ -125,7 +125,7 @@ function MapComponent(props) {
 
   const wms_options = {
     layers: "dzialki,numery_dzialek",
-    minZoom: 10,
+    minZoom: 12,
     maxZoom: 22,
     format: "image/png",
     transparent: true,
@@ -135,23 +135,17 @@ function MapComponent(props) {
   const token = process.env.REACT_APP_MAPBOX_TOKEN;
 
   const satelite_options = {
-    // url: `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}@2x?access_token=${token}`,
-    // attribution: "Map data © <a href='https://www.mapbox.com/'>Mapbox</a>",
-    // maxZoom: 22,
-    // id: "mapbox/satellite-v9",
-    // accessToken: "YOUR_MAPBOX_ACCESS_TOKEN",
-    // tileSize:512,
-    // zoomOffset: -1,
-    // boundsOptions:{ noWrap: true }
-    url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
-    maxZoom: 20,
-    attribution:
-      "Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community",
+    layers: "Raster",
+    minZoom: 18,
+    maxZoom: 22,
+    format: "image/png",
+    transparent: false,
+    url: "https://mapy.geoportal.gov.pl/wss/service/PZGIK/ORTO/WMS/HighResolution",
   };
 
   return (
     <>
-      <TileLayer {...satelite_options} />
+      <WMSTileLayer {...satelite_options} />
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         {...tms_options}

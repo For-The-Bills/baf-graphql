@@ -45,7 +45,7 @@ function Layer(props) {
                 <IconButton onClick={handleCompleteLayer} color='primary'>
                     <CheckIcon />
                 </IconButton> }
-                <IconButton onClick={handleDeleteLayer} color='red'>
+                <IconButton onClick={handleDeleteLayer} color='light'>
                     <DeleteIcon />
                 </IconButton>
             </div> 

@@ -38,7 +38,7 @@ function Editor(props) {
     dispatch(openAdditionModal());
   };
 
-  const handleOwnNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOwnNameChange = (event) => {
     setLocalSurfaceOwnName(event.target.value);
   }
 
@@ -55,7 +55,7 @@ function Editor(props) {
     }))
   };
 
-  const handleSelectChange = (event: SelectChangeEvent) => {
+  const handleSelectChange = (event) => {
     console.log(event.target)
     setLocalSurfaceSeletion(event.target.value);
   };
@@ -67,7 +67,7 @@ function Editor(props) {
       closeModal={handleModalClose}
       title="Stwórz nową warstwę"
       visible={additionModalState}
-      height={300}
+      height={370}
       noBodyPadding
     >
       <div className={styles.additionModalBody}>
@@ -105,7 +105,7 @@ function Editor(props) {
           <LoadingButton
             variant="outlined"
             onClick={handleModalClose}
-            color="red"
+            color="light"
           >
             Anuluj
           </LoadingButton>
@@ -148,7 +148,18 @@ function Editor(props) {
         </div>
 
         <div className={styles.calc}>
+                <div className={styles.type}>
 
+                    
+
+                </div>
+                
+                <div className={styles.calcHeader}>
+                    Wskaźnik BAF
+                </div>
+                <div className={styles.outcome}>
+                    ...
+                </div>
         </div>
 
       </div>

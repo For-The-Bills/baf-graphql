@@ -70,6 +70,15 @@ $editor_width: 25rem;
 
     .calc{
       display: flex;
+      flex-direction: column;
+
+      .calcHeader{
+
+      }
+      .outcome{
+        
+      }
+
     }
   }
 }
@@ -84,6 +93,7 @@ $editor_width: 25rem;
   .inputs {
     display: flex;
     width: 90%;
+    flex-direction: column;
     gap: 1rem;
     margin: 2rem 0 1rem 0;
     justify-content: space-around;

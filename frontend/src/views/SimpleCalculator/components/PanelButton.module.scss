@@ -1,0 +1,55 @@
+@import "../../../assets/variables.scss";
+
+$shadow-opacity-hover: 0.8;
+$shadow-opacity: 0.3;
+
+.panelButton {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: column;
+  padding: 20px;
+  color: $border_grey;
+  border: 3px $border_grey solid;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  word-break: keep-all !important;
+  .iconContainer {
+    color: inherit;
+    text-align: center;
+    font-size: 20px !important;
+  }
+
+  .labelContainer {
+    color: inherit;
+    text-align: center;
+    font-weight: 600;
+
+    &SmallText {
+      color: inherit;
+      text-align: center;
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+
+  &:hover {
+    border-color: rgba($dark_green, 1);
+    color: $dark_green;
+    transition: 0.3s;
+  }
+
+  &:active {
+    border-color: rgba($dark_green, 0.5);
+    transition: 1s;
+  }
+}
+
+.panelSmallText {
+  padding: 20px 5px;
+  color: white;
+  border: 3px white solid;
+  background-color: rgba(34, 34, 34, 0.9);
+  cursor: pointer;
+}

@@ -17,6 +17,11 @@ import {
 } from "@mui/material"
 
 import PlantAnimation from "./PlantAnimation"
+import PanelButton from "./PanelButton"
+import { Html5Entities } from "html-entities"
+
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded"
+import ArchitectureRoundedIcon from "@mui/icons-material/ArchitectureRounded"
 
 const formZagospodarowaniaOptions = {
   "powierzchnie szczelne (nieprzepuszczalne)": 0,
@@ -164,10 +169,12 @@ const Computation = ({ sugIndicatorValue }) => {
                   Forma zagospodarowania
                 </TableCell>
                 <TableCell style={{ width: "15%" }}>
-                  Powierzchnia (m2)
+                  Powierzchnia (m<sup>2</sup>)
                 </TableCell>
                 <TableCell style={{ width: "10%" }}>Współczynnik</TableCell>
-                <TableCell style={{ width: "10%" }}>BAF (m2)</TableCell>
+                <TableCell style={{ width: "10%" }}>
+                  BAF (m<sup>2</sup>)
+                </TableCell>
                 <TableCell style={{ width: "5%" }}></TableCell>
                 <TableCell style={{ width: "5%" }}></TableCell>
               </TableRow>
@@ -210,9 +217,13 @@ const Computation = ({ sugIndicatorValue }) => {
                       <TextField
                         type="number"
                         value={row.powierzchnia}
-                        endAdornment={
-                          <InputAdornment position="end">m2</InputAdornment>
-                        }
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              m&#178;
+                            </InputAdornment>
+                          ),
+                        }}
                         onChange={(event) =>
                           handlePowierzchniaChange(event, index)
                         }
@@ -253,7 +264,7 @@ const Computation = ({ sugIndicatorValue }) => {
               </AnimatePresence>
               <TableRow>
                 <TableCell>
-                  <Slide>
+                  <Slide triggerOnce={true}>
                     <Button variant="contained" onClick={handleAddRow}>
                       Dodaj wiersz
                     </Button>
@@ -284,16 +295,32 @@ const Computation = ({ sugIndicatorValue }) => {
       </Fade>
 
       <Fade delay={750} triggerOnce={true}>
-        <div className={styles.totalBafContainer}>
-          <div className={styles.totalBafBox}>
-            <p className={styles.totalBafLabel}>Wartość BAF:</p>
-            <p className={styles.totalBafValue}>
-              {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
-            </p>
+        <div className={styles.lowerNavContainer}>
+          <PanelButton
+            label={"Porady dla mieszkańca"}
+            icon={<PersonRoundedIcon style={{ fontSize: 40 }} />}
+            width={150}
+            height={150}
+            onClick={() => console.log("Test")}
+          />
+          <div className={styles.totalBafContainer}>
+            <div className={styles.totalBafBox}>
+              <p className={styles.totalBafLabel}>Wartość BAF:</p>
+              <p className={styles.totalBafValue}>
+                {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
+              </p>
+            </div>
+            <div className={handleUnderboxColor()}>
+              <p className={styles.bafInfo}>{renderHintText()}</p>
+            </div>
           </div>
-          <div className={handleUnderboxColor()}>
-            <p className={styles.bafInfo}>{renderHintText()}</p>
-          </div>
+          <PanelButton
+            label={"Porady dla projektanta"}
+            icon={<ArchitectureRoundedIcon style={{ fontSize: 40 }} />}
+            width={150}
+            height={150}
+            onClick={() => console.log("Test2")}
+          />
         </div>
       </Fade>
 

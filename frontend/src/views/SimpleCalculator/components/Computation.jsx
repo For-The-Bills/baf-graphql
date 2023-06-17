@@ -1,6 +1,7 @@
 import styles from "./Computation.module.scss"
 import React, { useState, useEffect } from "react"
 import { Slide, Fade } from "react-awesome-reveal"
+import { AnimatePresence, motion } from "framer-motion"
 
 import {
   Button,
@@ -134,71 +135,81 @@ const Computation = ({ sugIndicatorValue }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map((row, index) => (
-                <TableRow key={index}>
-                  <TableCell>
-                    <TextField
-                      value={row.nazwa}
-                      onChange={(event) => handleNazwaChange(event, index)}
-                      fullWidth
-                      inputProps={{ maxLength: 50 }}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <TextField
-                      select
-                      value={row.forma}
-                      onChange={(event) => handleFormaChange(event, index)}
-                      fullWidth
-                    >
-                      {Object.keys(formZagospodarowaniaOptions).map(
-                        (option, index) => (
-                          <MenuItem key={index} value={option}>
-                            {option}
-                          </MenuItem>
-                        )
-                      )}
-                    </TextField>
-                  </TableCell>
-                  <TableCell>
-                    <TextField
-                      type="number"
-                      value={row.powierzchnia}
-                      onChange={(event) =>
-                        handlePowierzchniaChange(event, index)
-                      }
-                      fullWidth
-                      inputProps={{ min: 0, step: 1.0 }}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    {formZagospodarowaniaOptions[row.forma]}
-                  </TableCell>
-                  <TableCell>
-                    <p className={styles.rowBaf}>
-                      {isNaN(calculateBAF(row.forma, row.powierzchnia))
-                        ? "0.00"
-                        : calculateBAF(row.forma, row.powierzchnia)?.toFixed(2)}
-                    </p>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleDuplicateRow(index)}
-                    >
-                      Duplikuj
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outlined"
-                      onClick={() => handleRemoveRow(index)}
-                    >
-                      Usuń
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
+              <AnimatePresence initial={false}>
+                {rows.map((row, index) => (
+                  <motion.tr
+                    key={index}
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -50 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <TableCell style={{ width: "20%" }}>
+                      <TextField
+                        value={row.nazwa}
+                        onChange={(event) => handleNazwaChange(event, index)}
+                        fullWidth
+                        inputProps={{ maxLength: 50 }}
+                      />
+                    </TableCell>
+                    <TableCell style={{ width: "30%" }}>
+                      <TextField
+                        select
+                        value={row.forma}
+                        onChange={(event) => handleFormaChange(event, index)}
+                        fullWidth
+                      >
+                        {Object.keys(formZagospodarowaniaOptions).map(
+                          (option, index) => (
+                            <MenuItem key={index} value={option}>
+                              {option}
+                            </MenuItem>
+                          )
+                        )}
+                      </TextField>
+                    </TableCell>
+                    <TableCell style={{ width: "10%" }}>
+                      <TextField
+                        type="number"
+                        value={row.powierzchnia}
+                        onChange={(event) =>
+                          handlePowierzchniaChange(event, index)
+                        }
+                        fullWidth
+                        inputProps={{ min: 0, step: 1.0 }}
+                      />
+                    </TableCell>
+                    <TableCell>
+                      {formZagospodarowaniaOptions[row.forma]}
+                    </TableCell>
+                    <TableCell>
+                      <p className={styles.rowBaf}>
+                        {isNaN(calculateBAF(row.forma, row.powierzchnia))
+                          ? "0.00"
+                          : calculateBAF(row.forma, row.powierzchnia)?.toFixed(
+                              2
+                            )}
+                      </p>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleDuplicateRow(index)}
+                      >
+                        Duplikuj
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outlined"
+                        onClick={() => handleRemoveRow(index)}
+                      >
+                        Usuń
+                      </Button>
+                    </TableCell>
+                  </motion.tr>
+                ))}
+              </AnimatePresence>
               <TableRow>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
@@ -235,23 +246,30 @@ const Computation = ({ sugIndicatorValue }) => {
               {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
             </p>
           </div>
+          <div className={styles.totalBafUnderbox}>
+            <p className={styles.totalBafLabel}>Wartość BAF:</p>
+            <p className={styles.totalBafValue}>
+              {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
+            </p>
+          </div>
         </div>
       </Fade>
 
-      {sugIndicatorValue > bafFinalValue &&
-      sugIndicatorValue != "Wybierz rodzaj zabudowy" ? (
+      {sugIndicatorValue > bafFinalValue ? (
         <div>
           <p className={styles.bafText}>
             Twój BAF jest zbyt niski w porównaniu z sugerowanym BAF dla tego
             typu zabudowy
           </p>
         </div>
-      ) : (
+      ) : sugIndicatorValue != "Wybierz rodzaj zabudowy" ? (
         <div>
           <p className={styles.bafText}>
             Twój BAF jest prawidłowy. Gratulacje!
           </p>
         </div>
+      ) : (
+        <div></div>
       )}
 
       <Slide>

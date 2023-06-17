@@ -31,6 +31,9 @@ $editor_width: 25rem;
       color: white;
       font-weight: 500;
       padding: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .parcelInfo {
@@ -70,6 +73,48 @@ $editor_width: 25rem;
 
     .calc{
       display: flex;
+      flex-direction: column;
+      
+      .type{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 2px $border_grey solid;
+        padding: 0.7rem 0;
+        color: white;
+        .select{
+          background-color: $white !important;
+        }
+      }
+
+      .calcHeader{
+        background-color: $border_grey;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.8rem 0;
+      }
+      .outcome{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 3rem;
+        font-weight: 500;
+        gap: 1rem;
+        .left{
+          
+        }
+
+        .divider{
+          
+        }
+
+        .right{
+
+        }
+      }
+
     }
   }
 }
@@ -84,6 +129,7 @@ $editor_width: 25rem;
   .inputs {
     display: flex;
     width: 90%;
+    flex-direction: column;
     gap: 1rem;
     margin: 2rem 0 1rem 0;
     justify-content: space-around;

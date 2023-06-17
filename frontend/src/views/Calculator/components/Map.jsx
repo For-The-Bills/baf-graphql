@@ -38,28 +38,23 @@ function Map(props) {
   const editorData = useSelector(selectEditorData);
   const parcelLoading = useSelector(selectParcelLoading);
   const parcelSelected = useSelector(selectParcelData);
-  const zoomToCoords = useSelector(selectZoomToCoords)
+  const zoomToCoords = useSelector(selectZoomToCoords);
 
   console.log(process.env);
   useEffect(() => {
-    if (
-      editorData &&
-      editorData.max_bounds &&
-      parcelSelected &&
-      mapRef.current
-    ) {
-      const formatted_coords = [...mapPositionCenter];
-      mapRef.current.setView(formatted_coords, 20);
-      console.log(editorData.max_bounds);
-      mapRef.current.setMaxBounds(editorData.max_bounds);
+    if (mapRef.current) {
+      mapRef.current.setView(mapPositionCenter, 12);
+      console.log("set view")
     }
   }, [mapPositionCenter]);
 
   useEffect(() => {
     if (zoomToCoords && mapRef.current) {
-      mapRef.current.setView(zoomToCoords, 18);
+      mapRef.current.setView(zoomToCoords, 20);
     }
   }, [zoomToCoords]);
+
+
 
   useEffect(() => {
     if (!parcelSelected && mapRef.current) {
@@ -74,13 +69,14 @@ function Map(props) {
         ref={mapRef}
         className={styles.map}
         center={mapPositionCenter}
-        zoom={13}
+        zoom={15}
         maxZoom={22}
+        minZoom={10}
         scrollWheelZoom={false}
       >
         <MapComponent mapRef={mapRef} />
       </MapContainer>
-      
+
       {parcelLoading && <Loading />}
     </div>
   );

@@ -233,7 +233,7 @@ export const calcSlice = createSlice({
       state.editorData = {...action.payload, layers:[]};
       state.parcelSelected = true;
       state.infoModal = false;
-      state.mapPositionCenter = action.payload.polygon_center.reverse();
+      state.zoomToCoords = action.payload.polygon_center.reverse();
     });
 
     builder.addCase(getParcelShape.rejected, (state, action) => {
@@ -258,7 +258,7 @@ export const calcSlice = createSlice({
       };
       state.parcelSelected = true;
       state.infoModal = false;
-      state.mapPositionCenter = action.payload.polygon_center.reverse();
+      state.zoomToCoords = action.payload.polygon_center.reverse();
     })
 
     builder.addCase(getParcelShapeByName.rejected, (state, action) => {

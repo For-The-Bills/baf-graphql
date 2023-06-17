@@ -229,7 +229,7 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
                       <IconButton
                         tooltip="Wyświetl pomoc"
                         onClick={() => {
-                          handleHelpChange("forma zagospodarowania")
+                          handleHelpChange("współczynnik")
                         }}
                       >
                         <HelpOutlineIcon

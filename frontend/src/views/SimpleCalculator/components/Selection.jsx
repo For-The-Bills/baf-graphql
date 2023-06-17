@@ -2,7 +2,13 @@ import React, { useState } from "react"
 import styles from "./Selection.module.scss"
 import { Slide, Fade } from "react-awesome-reveal"
 
-import { InputLabel, MenuItem, Select, IconButton } from "@mui/material"
+import {
+  InputLabel,
+  MenuItem,
+  Select,
+  IconButton,
+  Tooltip,
+} from "@mui/material"
 import FormControl from "@mui/material/FormControl"
 import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded"
 
@@ -23,15 +29,16 @@ function Selection({
       <Slide direction="left" triggerOnce={true}>
         <div className={styles.sectionTitle}>
           <p className={styles.sectionTitleText}>Konfiguracja</p>
-
-          <IconButton
-            tooltip="Wyświetl pomoc"
-            onClick={() => {
-              handleHelpChange("konfiguracja")
-            }}
-          >
-            <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
-          </IconButton>
+          <Tooltip title="Wyświetl pomoc">
+            <IconButton
+              tooltip="Wyświetl pomoc"
+              onClick={() => {
+                handleHelpChange("konfiguracja")
+              }}
+            >
+              <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+            </IconButton>
+          </Tooltip>
         </div>
         <div className={styles.selectionWrapper}>
           <div className={styles.selectionContainer}>
@@ -89,7 +96,7 @@ function Selection({
             ></ArrowDownwardRoundedIcon>
           </div>
           <div className={styles.minimalBaf}>
-            <p>Sugerowany wskaźnik baf:</p>
+            <p>Sugerowany wskaźnik BAF:</p>
             <p className={styles.bafIndicator}>{sugIndicatorValue}</p>
           </div>
         </div>

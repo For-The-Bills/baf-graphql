@@ -13,11 +13,27 @@ const dictionary = {
   },
   konfiguracja: {
     title: "Konfiguracja",
-    description: "Opis konfiguracji...",
+    description: (
+      <p>
+        W sekcji konfiguracja wybiera się "Rodzaj zabudowy" oraz "Obręb miasta"
+        w celu sprawdzenia jaki jest wymagana wskaźnik BAF dla wybranego rodzaju
+        inwestycji w wybranym obrębie miasta.<br></br>
+        <br></br>
+        Wymagana wartość jest różna w zależności od funkcji danego terenu - inna
+        wartość określona jest dla np. zabudowy mieszkaniowej, inny dla zabudowy
+        usługowej itd.
+      </p>
+    ),
   },
   nazwa: {
     title: "Nazwa",
-    description: "Opis nazwy...",
+    description: (
+      <p>
+        Nazwa pozwala lepiej zidentyfikować wiersze w tabeli. Jest to opcjonalne
+        pole. Przykłady nazwy to np. "Drzewa sprzed domu", "Krzewy przy płocie"
+        <br></br>
+      </p>
+    ),
   },
   "forma zagospodarowania": {
     title: "Forma zagospodarowania",
@@ -25,6 +41,14 @@ const dictionary = {
   },
   współczynnik: {
     title: "Współczynnik",
+    description: "Opis współczynnika...",
+  },
+  współczynnik: {
+    title: "Współczynnik",
+    description: "Opis współczynnika...",
+  },
+  współczynnik: {
+    title: "Wartość BAF",
     description: "Opis współczynnika...",
   },
 }

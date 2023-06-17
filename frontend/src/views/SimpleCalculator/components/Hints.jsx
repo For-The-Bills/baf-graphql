@@ -58,9 +58,19 @@ const Hints = () => {
       </div>
 
       <AppBar position="static">
-        <Tabs value={activeTab} onChange={handleTabChange} centered>
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          centered
+          textColor="primary"
+          indicatorColor="primary"
+        >
           {categories.map((category) => (
-            <Tab key={category.id} label={category.name} />
+            <Tab
+              key={category.id}
+              label={category.name}
+              className={activeTab === category.id ? styles.activeTab : ""}
+            />
           ))}
         </Tabs>
       </AppBar>

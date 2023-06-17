@@ -74,7 +74,10 @@ const Computation = ({ sugIndicatorValue }) => {
   const calculateTotalBAF = () => {
     let totalBAF = 0
     rows.forEach((row) => {
-      totalBAF += calculateBAF(row.forma, row.powierzchnia)
+      console.log(row)
+      if (row.forma !== "" && row.powierzchnia !== "") {
+        totalBAF += calculateBAF(row.forma, row.powierzchnia)
+      }
     })
     return Math.ceil(totalBAF * 100) / 100
   }

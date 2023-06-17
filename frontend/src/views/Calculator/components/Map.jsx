@@ -21,12 +21,16 @@ import LoadingButton from "@mui/lab/LoadingButton";
 import Loading from "../../../components/Loading/Loading";
 import { useEffect, useRef } from "react";
 import { debounce } from "lodash";
+import { emmitError } from "../../../utils/ToastEmmiter";
 
 function Map(props) {
   const mapPositionCenter = useSelector(selectMapPositionCenter);
   const editorData = useSelector(selectEditorData);
   const parcelLoading = useSelector(selectParcelLoading);
   const parcelSelected = useSelector(selectParcelData);
+  const currentSelectionIndex = useSelector(selectCurrentlySelectedLayerIndex)
+  const mapRef = useRef(null);
+
   console.log(process.env);
   useEffect(() => {
     if (
@@ -43,12 +47,23 @@ function Map(props) {
   }, [mapPositionCenter]);
 
   useEffect(() => {
+    const mapContainer = document.querySelector('.leaflet-container');
+
+    if (currentSelectionIndex!=-1 && mapContainer) {
+      mapContainer.style.cursor = "crosshair";
+    } 
+    else {
+      mapContainer.style.cursor = "grab";
+    }
+  }, [currentSelectionIndex]);
+
+  useEffect(() => {
     if (!parcelSelected && mapRef.current) {
       mapRef.current.setMaxBounds(null);
     }
   }, [parcelSelected]);
 
-  const mapRef = useRef(null);
+  
   return (
     <div className={styles.mapContainer}>
       <MapContainer
@@ -104,6 +119,25 @@ function MapComponent(props) {
     }
   };
 
+  function inside(point, vs) {
+    // ray-casting algorithm based on
+    // https://wrf.ecse.rpi.edu/Research/Short_Notes/pnpoly.html
+    
+    var x = point[0], y = point[1];
+    
+    var inside = false;
+    for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+        var xi = vs[i][0], yi = vs[i][1];
+        var xj = vs[j][0], yj = vs[j][1];
+        
+        var intersect = ((yi > y) != (yj > y))
+            && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+        if (intersect) inside = !inside;
+    }
+    
+    return inside;
+};
+
   const debouncedKeepInBounds = debounce(handleKeepInBounds, 75);
 
   const mapEvents = useMapEvents({
@@ -111,12 +145,16 @@ function MapComponent(props) {
       const { lat, lng } = e.latlng;
       console.log(e.latlng);
       if (!parcelSelected) dispatch(getParcelByCoordinates({ x: lat, y: lng }));
-      if(currentSelectionIndex != -1) {
+      if(currentSelectionIndex != -1 && inside([lat,lng], editorData.coords)) {
+
         dispatch(addNewMarker([lat, lng]))
+      }else{
+        emmitError('Wybrane punkt nie jest w obszarze działki')
       }
     },
     drag: () => {
       debouncedKeepInBounds();
+      
     },
   });
 

@@ -8,6 +8,7 @@ import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded"
 
 import HelpIcon from "@mui/icons-material/Help"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+import SouthIcon from "@mui/icons-material/South"
 
 function Selection({
   sugIndicatorValue,

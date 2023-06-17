@@ -14,6 +14,7 @@ import {
   TableRow,
   TextField,
   MenuItem,
+  IconButton,
 } from "@mui/material"
 
 import PlantAnimation from "./PlantAnimation"
@@ -25,6 +26,7 @@ import ArchitectureRoundedIcon from "@mui/icons-material/ArchitectureRounded"
 
 import HelpIcon from "@mui/icons-material/Help"
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+
 
 const formZagospodarowaniaOptions = {
   "powierzchnie szczelne (nieprzepuszczalne)": 0,
@@ -42,7 +44,7 @@ const formZagospodarowaniaOptions = {
   "ogród deszczowy (na 1m2)": 0.7,
 }
 
-const Computation = ({ sugIndicatorValue }) => {
+const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
   const [rows, setRows] = useState([{ nazwa: "", forma: "", powierzchnia: "" }])
   const [bafFinalValue, setBafFinalValue] = useState(0)
   const [showHints, setShowHints] = useState(false)
@@ -167,7 +169,14 @@ const Computation = ({ sugIndicatorValue }) => {
       <Fade delay={250} cascade damping={1e-1} triggerOnce={true}>
         <div className={styles.sectionTitle}>
           <p className={styles.sectionTitleText}>Kalkulator</p>
-          <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+          <IconButton
+            tooltip="Wyświetl pomoc"
+            onClick={() => {
+              handleHelpChange("kalkulator")
+            }}
+          >
+            <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+          </IconButton>
         </div>
         <TableContainer>
           <Table>

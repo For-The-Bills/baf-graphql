@@ -23,6 +23,9 @@ import { Html5Entities } from "html-entities"
 import PersonRoundedIcon from "@mui/icons-material/PersonRounded"
 import ArchitectureRoundedIcon from "@mui/icons-material/ArchitectureRounded"
 
+import HelpIcon from "@mui/icons-material/Help"
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+
 const formZagospodarowaniaOptions = {
   "powierzchnie szczelne (nieprzepuszczalne)": 0,
   "powierzchnie półprzepuszczalne": 0.5,
@@ -162,12 +165,16 @@ const Computation = ({ sugIndicatorValue }) => {
   return (
     <div className={styles.computationContainer}>
       <Fade delay={250} cascade damping={1e-1} triggerOnce={true}>
+        <div className={styles.sectionTitle}>
+          <p className={styles.sectionTitleText}>Kalkulator</p>
+          <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+        </div>
         <TableContainer>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell style={{ width: "20%" }}>Nazwa</TableCell>
-                <TableCell style={{ width: "30%" }}>
+                <TableCell style={{ width: "15%" }}>Nazwa</TableCell>
+                <TableCell style={{ width: "35%" }}>
                   Forma zagospodarowania
                 </TableCell>
                 <TableCell style={{ width: "15%" }}>
@@ -177,7 +184,7 @@ const Computation = ({ sugIndicatorValue }) => {
                 <TableCell style={{ width: "10%" }}>
                   BAF (m<sup>2</sup>)
                 </TableCell>
-                <TableCell style={{ width: "5%" }}></TableCell>
+                <TableCell style={{ width: "10%" }}></TableCell>
                 <TableCell style={{ width: "5%" }}></TableCell>
               </TableRow>
             </TableHead>

@@ -13,6 +13,9 @@ import {
 } from "@mui/material"
 import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates"
 
+import HelpIcon from "@mui/icons-material/Help"
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline"
+
 const Hints = () => {
   const [activeTab, setActiveTab] = useState(0)
 
@@ -52,6 +55,9 @@ const Hints = () => {
 
   return (
     <div className={styles.hintsContainer}>
+      <div className={styles.sectionTitle}>
+        <p className={styles.sectionTitleText}>Pomoc</p>
+      </div>
       <div className={styles.hintIntro}>
         <TipsAndUpdatesIcon></TipsAndUpdatesIcon>
         <p>Jeśli chcesz zwiększyć wartość BAF, przeczytaj poniższe rady</p>

@@ -103,7 +103,8 @@ function Editor(props) {
       const multiplier = surfaces[layer.surfaceType].value;
       outcome_baf += layer.area * multiplier;
     });
-    setLocalBAF(outcome_baf);
+    const baf_i = parseFloat((outcome_baf/editorData.area).toFixed(2))
+    setLocalBAF(baf_i);
   }, [localSurfaceSelection, editorData.layers]);
 
   const additionModal = (

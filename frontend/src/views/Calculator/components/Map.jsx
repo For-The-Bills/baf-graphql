@@ -54,7 +54,7 @@ function Map(props) {
         className={styles.map}
         center={mapPositionCenter}
         zoom={13}
-        maxZoom={22}
+        maxZoom={20}
         scrollWheelZoom={false}
       >
         <MapComponent mapRef={mapRef} />

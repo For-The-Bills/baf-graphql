@@ -47,7 +47,7 @@ router.get('/shape', async (req, res, next) => {
 
         const polygon_center = calculatePolygonCenter(parsed)
         const max_bounds = calculatePolygonBounds(parsed)
-
+        
         return res.status(200).json({ coords: parsed, polygon_center, max_bounds })
     } catch (error) {
         next(error)

@@ -58,6 +58,12 @@ function calculatePolygonBounds(coordinates) {
         maxX = Math.max(maxX, x);
         maxY = Math.max(maxY, y);
     }
+    const reductionX = (maxX - minX) * 0.2;
+    const reductionY = (maxY - minY) * 0.2;
+    minX += reductionX;
+    minY += reductionY;
+    maxX -= reductionX;
+    maxY -= reductionY;
     return [minX, minY, maxX, maxY];
 }
 exports.calculatePolygonBounds = calculatePolygonBounds;

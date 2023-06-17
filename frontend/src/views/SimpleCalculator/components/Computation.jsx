@@ -1,6 +1,6 @@
 import styles from "./Computation.module.scss"
 import React, { useState, useEffect } from "react"
-import { Slide, Fade } from "react-awesome-reveal"
+import { Slide, Fade, JackInTheBox } from "react-awesome-reveal"
 
 import {
   Button,
@@ -115,7 +115,7 @@ const Computation = ({ sugIndicatorValue }) => {
 
   return (
     <div className={styles.computationContainer}>
-      <Fade>
+      <Fade delay={250} cascade damping={1e-1}>
         <TableContainer>
           <Table>
             <TableHead>
@@ -227,14 +227,33 @@ const Computation = ({ sugIndicatorValue }) => {
         </Button>
       </Slide>
 
-      <div className={styles.totalBafContainer}>
-        <div className={styles.totalBafBox}>
-          <p className={styles.totalBafLabel}>Wartość BAF:</p>
-          <p className={styles.totalBafValue}>
-            {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
+      <Fade delay={750}>
+        <div className={styles.totalBafContainer}>
+          <div className={styles.totalBafBox}>
+            <p className={styles.totalBafLabel}>Wartość BAF:</p>
+            <p className={styles.totalBafValue}>
+              {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
+            </p>
+          </div>
+        </div>
+      </Fade>
+
+      {sugIndicatorValue > bafFinalValue &&
+      sugIndicatorValue != "Wybierz rodzaj zabudowy" ? (
+        <div>
+          <p className={styles.bafText}>
+            Twój BAF jest zbyt niski w porównaniu z sugerowanym BAF dla tego
+            typu zabudowy
           </p>
         </div>
-      </div>
+      ) : (
+        <div>
+          <p className={styles.bafText}>
+            Twój BAF jest prawidłowy. Gratulacje!
+          </p>
+        </div>
+      )}
+
       <Slide>
         <PlantAnimation></PlantAnimation>
       </Slide>

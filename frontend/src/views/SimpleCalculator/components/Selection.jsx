@@ -96,7 +96,7 @@ function Selection({
             ></ArrowDownwardRoundedIcon>
           </div>
           <div className={styles.minimalBaf}>
-            <p>Sugerowany wskaźnik BAF:</p>
+            <p>Wymagana wartość BAF:</p>
             <p className={styles.bafIndicator}>{sugIndicatorValue}</p>
           </div>
         </div>

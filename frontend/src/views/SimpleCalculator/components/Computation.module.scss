@@ -5,6 +5,30 @@
   overflow-x: hidden;
   overflow-y: auto;
 
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba($dark_green, 0.1);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark_green;
+    outline: 1px solid rgba($dark_green, 0.2);
+  }
+
+  @include s {
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+    &::-webkit-scrollbar-track {
+      background-color: rgba($dark_green, 0.1);
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: $dark_green;
+      outline: 1px solid rgba($dark_green, 0.2);
+    }
+  }
+
   .singleRow {
     width: 100%;
     max-width: 100%;
@@ -26,11 +50,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 1rem 1rem 0rem 0rem;
+    border-radius: 0rem 0rem 0rem 0rem;
   }
 
   .sectionTitleText {
     margin-right: 0.5rem;
+  }
+
+  .sectionContent {
+    height: 90%;
   }
 
   .rowBaf {
@@ -71,9 +99,16 @@
       box-shadow: 0px -6px 45px -30px rgba(0, 0, 0, 1);
       border-radius: 1rem 1rem 0rem 0rem;
 
+      .totalBafLabelContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+      }
+
       .totalBafLabel {
         margin: 0;
-        margin-top: 2rem;
       }
 
       .totalBafValue {

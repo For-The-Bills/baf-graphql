@@ -181,6 +181,8 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
             </IconButton>
           </Tooltip>
         </div>
+
+        <div className={styles.sectionContent}></div>
         <TableContainer>
           <Table>
             <TableHead>
@@ -374,7 +376,22 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
           />
           <div className={styles.totalBafContainer}>
             <div className={styles.totalBafBox}>
-              <p className={styles.totalBafLabel}>Wartość BAF:</p>
+              <div className={styles.totalBafLabelContainer}>
+                <p className={styles.totalBafLabel}>Wartość BAF:</p>
+                <Tooltip title="Wyświetl pomoc">
+                  <IconButton
+                    tooltip="Wyświetl pomoc"
+                    onClick={() => {
+                      handleHelpChange("wartość baf")
+                    }}
+                  >
+                    <HelpOutlineIcon
+                      style={{ fill: "#38a636", fontSize: 32 }}
+                    ></HelpOutlineIcon>
+                  </IconButton>
+                </Tooltip>
+              </div>
+
               <p className={styles.totalBafValue}>
                 {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
               </p>
@@ -392,10 +409,6 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
           />
         </div>
       </Fade>
-
-      {/* <Slide triggerOnce={true}>
-        <PlantAnimation></PlantAnimation>
-      </Slide> */}
     </div>
   )
 }

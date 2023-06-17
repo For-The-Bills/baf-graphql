@@ -29,6 +29,14 @@ async function getParcelWKT(x: number, y: number) {
     return {parcelWKT: parcelWKT.split(';')[1]}
 }
 
+async function getParcelWKTbyName(parcelRegion: string, parcelNumber: number) {
+    const regionAndNumber = parcelRegion + ' ' + parcelNumber
+    const parcelWKT = await fetchULDK(`?request=GetParcelByIdOrNr&id=${regionAndNumber}&result=geom_wkt`)
+    if(parcelWKT == 'error') return {parcelWKT: -1}
+    
+    return {parcelWKT: parcelWKT.split(';')[1]}
+}
+
 export {
-    getParcelDataByCoordinates, getParcelWKT
+    getParcelDataByCoordinates, getParcelWKT, getParcelWKTbyName
 }

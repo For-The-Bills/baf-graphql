@@ -114,6 +114,22 @@ const Computation = ({ sugIndicatorValue }) => {
     setBafFinalValue(bafValue)
   }, [rows])
 
+  useEffect(() => {
+    handleUnderboxColor()
+  }, [setBafFinalValue])
+
+  const handleUnderboxColor = () => {
+    let totalBafUnderbox = styles.totalBafUnderbox
+    if (sugIndicatorValue > bafFinalValue) {
+      totalBafUnderbox += " " + styles.totalBafUnderboxRed
+    } else if (sugIndicatorValue !== "Wybierz rodzaj zabudowy") {
+      totalBafUnderbox += " " + styles.totalBafUnderboxWhite
+    } else {
+      totalBafUnderbox += " " + styles.totalBafUnderboxGreen
+    }
+    return totalBafUnderbox
+  }
+
   return (
     <div className={styles.computationContainer}>
       <Fade delay={250} cascade damping={1e-1}>
@@ -246,31 +262,17 @@ const Computation = ({ sugIndicatorValue }) => {
               {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
             </p>
           </div>
-          <div className={styles.totalBafUnderbox}>
-            <p className={styles.totalBafLabel}>Wartość BAF:</p>
-            <p className={styles.totalBafValue}>
-              {isNaN(bafFinalValue) ? "0.00" : bafFinalValue?.toFixed(2)}
+          <div className={handleUnderboxColor()}>
+            <p className={styles.bafInfo}>
+              {sugIndicatorValue > bafFinalValue
+                ? "Twój BAF jest zbyt niski w porównaniu z sugerowanym BAF dla tego typu zabudowy"
+                : sugIndicatorValue === "Wybierz rodzaj zabudowy"
+                ? "Wybierz rodzaj zabudowy"
+                : "Twój BAF jest prawidłowy. Gratulacje!"}
             </p>
           </div>
         </div>
       </Fade>
-
-      {sugIndicatorValue > bafFinalValue ? (
-        <div>
-          <p className={styles.bafText}>
-            Twój BAF jest zbyt niski w porównaniu z sugerowanym BAF dla tego
-            typu zabudowy
-          </p>
-        </div>
-      ) : sugIndicatorValue != "Wybierz rodzaj zabudowy" ? (
-        <div>
-          <p className={styles.bafText}>
-            Twój BAF jest prawidłowy. Gratulacje!
-          </p>
-        </div>
-      ) : (
-        <div></div>
-      )}
 
       <Slide>
         <PlantAnimation></PlantAnimation>

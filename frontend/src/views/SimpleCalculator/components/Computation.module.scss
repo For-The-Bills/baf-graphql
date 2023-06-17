@@ -1,5 +1,4 @@
 @import "../../../assets/variables.scss";
-@import "./ComputationAnims.module.scss";
 
 .computationContainer {
   .singleRow {
@@ -29,9 +28,9 @@
   }
 
   .totalBafBox {
-    width: 200px;
+    width: 400px;
     height: 100px;
-    border: 2px solid black;
+    border: 2px solid $border_grey;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,5 +45,38 @@
       font-weight: 900;
       font-size: 24px;
     }
+  }
+
+  .totalBafUnderbox {
+    width: 400px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .bafInfo {
+      margin: 0px;
+      margin-left: 2px;
+      margin-right: 2px;
+      text-align: center;
+    }
+  }
+
+  .totalBafUnderboxRed {
+    background-color: $error_red;
+    color: $white;
+    border: 2px solid red;
+  }
+
+  .totalBafUnderboxGreen {
+    background-color: $dark_green;
+    color: $white;
+    border: 2px solid $dark_green;
+  }
+
+  .totalBafUnderboxWhite {
+    background-color: $white;
+    color: $border_grey;
+    border: 2px solid $border_grey;
   }
 }

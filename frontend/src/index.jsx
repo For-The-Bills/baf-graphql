@@ -90,7 +90,7 @@ root.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
       <Router history={history}>
-        <Navbar />
+        <Navbar history={history}/>
         <div id="SXWrapper" className="content">
           <ViewManager />
         </div>

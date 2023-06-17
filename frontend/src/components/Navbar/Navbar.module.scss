@@ -19,3 +19,13 @@
     max-width: 200px;
   }
 }
+
+.linkButton{
+  font-size: 2rem;
+  font-weight: 600;
+  color: $dark_grey;
+}
+
+.activeLinkButton{
+  color: $green !important;
+}

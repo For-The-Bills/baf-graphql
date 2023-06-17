@@ -57,10 +57,20 @@ const Hints = () => {
         <p>Jeśli chcesz zwiększyć wartość BAF, przeczytaj poniższe rady</p>
       </div>
 
-      <AppBar position="static">
-        <Tabs value={activeTab} onChange={handleTabChange} centered>
+      <AppBar position="static" sx={{ bgcolor: "white" }}>
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          centered
+          textColor="primary"
+          indicatorColor="primary"
+        >
           {categories.map((category) => (
-            <Tab key={category.id} label={category.name} />
+            <Tab
+              key={category.id}
+              label={category.name}
+              className={activeTab === category.id ? styles.activeTab : ""}
+            />
           ))}
         </Tabs>
       </AppBar>

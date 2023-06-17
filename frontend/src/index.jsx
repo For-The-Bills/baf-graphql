@@ -15,7 +15,6 @@ import variables from "./assets/variables.scss"
 import Navbar from "./components/Navbar/Navbar"
 import Footer from "./components/Footer/Footer"
 
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -25,11 +24,11 @@ const theme = createTheme({
       main: variables.darkgreen,
     },
     light: {
-      main: variables.vlightgreen
+      main: variables.vlightgreen,
     },
     red: {
       main: variables.red,
-    }
+    },
   },
   components: {
     MuiLoadingButton: {
@@ -62,7 +61,7 @@ const theme = createTheme({
         },
       },
     },
-    
+
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
@@ -90,13 +89,12 @@ export const history = createBrowserHistory()
 root.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
-        <Router history={history}>
-          <Navbar/>
-          <div id="SXWrapper" className="content">
-            <ViewManager />
-            <Footer/>
-          </div>
-        </Router>
+      <Router history={history}>
+        <Navbar />
+        <div id="SXWrapper" className="content">
+          <ViewManager />
+        </div>
+      </Router>
     </Provider>
   </ThemeProvider>
 )

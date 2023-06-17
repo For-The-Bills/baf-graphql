@@ -14,7 +14,8 @@ $screen-lg-min: 992px;
 $screen-xl-min: 1200px;
 $screen-xxl-min: 1500px;
 
-$navbar_height: 6.25rem;
+$navbar_height: 10vh;
+$body_height: 90vh;
 
 @mixin s {
   @media (max-width: #{$screen-sm-min}) {

@@ -6,6 +6,23 @@
     max-width: 100%;
     min-width: 100%;
   }
+
+  .sectionTitle {
+    width: 100%;
+    height: 50px;
+    background-color: $dark_green;
+    color: $white;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem 1rem 0rem 0rem;
+  }
+
+  .sectionTitleText {
+    margin-right: 0.5rem;
+  }
+
   .rowBaf {
     font-weight: 500;
   }

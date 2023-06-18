@@ -14,9 +14,6 @@ import { connect } from "react-redux"
 import { Slide } from "react-awesome-reveal"
 
 function Navbar(props) {
-  const history = props.history
-  const location = props.location
-
   const links = [
     { name: "Kalkulator Prosty", to: "/simplecalculator" },
     { name: "Mapa", to: "/calculator" },
@@ -38,8 +35,6 @@ function Navbar(props) {
       },
     },
   }
-
-  console.log(history, location)
 
   return (
     <div className={styles.navbarContainer}>

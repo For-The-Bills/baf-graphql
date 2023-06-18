@@ -1,5 +1,5 @@
-import React, { Component, lazy, Suspense } from "react";
-import { connect } from "react-redux";
+import React, { Component, lazy, Suspense } from "react"
+import { connect } from "react-redux"
 import {
   Route,
   Switch,
@@ -7,21 +7,21 @@ import {
   useNavigate,
   useParams,
   withRouter,
-} from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+} from "react-router-dom"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
-import NotFound from "./components/NotFound/NotFound";
+import NotFound from "./components/NotFound/NotFound"
 
-import Home from "./views/Home/Home";
+import Home from "./views/Home/Home"
 
-import Calculator from "./views/Calculator/Calculator";
-import SimpleCalculator from "./views/SimpleCalculator/SimpleCalculator";
+import Calculator from "./views/Calculator/Calculator"
+import SimpleCalculator from "./views/SimpleCalculator/SimpleCalculator"
 
 // import ItemTypes from "./views/reservations/itemTypes/ItemTypes";
 // import ItemType from "./views/reservations/itemType/ItemType";
-import Loading from "./components/Loading/Loading";
-import ScrollToTop from "./utils/ScrollToTop";
+import Loading from "./components/Loading/Loading"
+import ScrollToTop from "./utils/ScrollToTop"
 
 class ViewManager extends Component {
   render() {
@@ -52,8 +52,8 @@ class ViewManager extends Component {
           </ScrollToTop>
         </Suspense>
       </>
-    );
+    )
   }
 }
 
-export default withRouter(connect()(ViewManager));
+export default withRouter(connect()(ViewManager))

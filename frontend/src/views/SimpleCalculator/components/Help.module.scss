@@ -32,6 +32,8 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
 
   .icon {
     font-size: 48px;
@@ -93,8 +95,7 @@
   }
 }
 
-
-.tipTitle{
+.tipTitle {
   font-weight: 500;
   font-size: 1rem;
 }

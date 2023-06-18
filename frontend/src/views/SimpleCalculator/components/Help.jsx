@@ -63,31 +63,42 @@ const surfaces = [
 
 const tips = [
   {
-    name: 'Drzewa',
-    description: (<>
-      przeznaczenie 50 m<sup>2</sup> powierzchni działki na drzewa znacznie poprawi bilans biologiczny działki
-    </>)
+    name: "Drzewa",
+    description: (
+      <>
+        przeznaczenie 50 m<sup>2</sup> powierzchni działki na drzewa poprawi
+        bilans biologiczny działki
+      </>
+    ),
   },
   {
-    name: 'Krzewy',
-    description: (<>
-      przeznaczenie 100 m<sup>2</sup> powierzchni działki na krzewy znacznie poprawi bilans biologiczny działki
-    </>)
+    name: "Krzewy",
+    description: (
+      <>
+        przeznaczenie 100 m<sup>2</sup> powierzchni działki na krzewy znacznie
+        poprawi bilans biologiczny działki
+      </>
+    ),
   },
   {
-    name: 'Łąka kwietna',
-    description: (<>
-      przeznaczenie 40 m<sup>2</sup> powierzchni działki na łąki kwietne znacznie poprawi bilans biologiczny działki
-    </>)
+    name: "Łąka kwietna",
+    description: (
+      <>
+        przeznaczenie 40 m<sup>2</sup> powierzchni działki na łąki kwietne
+        poprawi bilans biologiczny działki
+      </>
+    ),
   },
   {
-    name: 'Dachy zielone',
-    description: (<>
-      wykorzystanie 100 m<sup>2</sup> powierzchni dachów zabudowy jako zielone dachy znacznie poprawi bilans biologiczny działki 
-    </>)
-  }
+    name: "Dachy zielone",
+    description: (
+      <>
+        wykorzystanie 100 m<sup>2</sup> powierzchni dachów zabudowy jako zielone
+        dachy znacznie poprawi bilans biologiczny działki
+      </>
+    ),
+  },
 ]
-
 
 const dictionary = {
   kalkulator: {
@@ -177,18 +188,15 @@ const dictionary = {
     description: (
       <div>
         <div className={styles.tipTitle}>
-          Aby uzyskać odpowiednią wartość BAF, proponujemy:
+          Aby uzyskać odpowiednią wartość BAF, proponujemy dodać:
         </div>
-      <List>
-
-        {tips.map((tip, index) => (
-          <ListItem>
-          <ListItemText primary={tip.name} secondary={tip.description} />
-        </ListItem>
-        ))}
-
-        
-      </List>
+        <List>
+          {tips.map((tip, index) => (
+            <ListItem>
+              <ListItemText primary={tip.name} secondary={tip.description} />
+            </ListItem>
+          ))}
+        </List>
       </div>
     ),
   },
@@ -199,7 +207,11 @@ const Help = ({ selectedHelp, handleHelpChange }) => {
   const selectedTerm = dictionary[selectedHelp]
 
   return (
-    <Fade triggerOnce={true} className={styles.helpContainer}>
+    <Slide
+      direction="right"
+      triggerOnce={true}
+      className={styles.helpContainer}
+    >
       <div className={styles.help}>
         <div className={styles.sectionTitle}>
           <p className={styles.sectionTitleText}>Pomoc</p>
@@ -220,7 +232,7 @@ const Help = ({ selectedHelp, handleHelpChange }) => {
           </div>
         )}
       </div>
-    </Fade>
+    </Slide>
   )
 }
 

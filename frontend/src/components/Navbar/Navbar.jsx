@@ -11,6 +11,8 @@ import { Link } from "react-router-dom"
 import classNames from "classnames"
 import { Typography } from "@mui/material"
 import { connect } from "react-redux"
+import { Slide } from "react-awesome-reveal"
+
 function Navbar(props) {
   const history = props.history
   const location = props.location
@@ -41,17 +43,13 @@ function Navbar(props) {
 
   return (
     <div className={styles.navbarContainer}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-      >
+      <Slide direction="left" triggerOnce={true}>
         <img
           className={styles.logo}
           src={bafLogo}
           alt="Dąbrowa Górnicza kalkulator BAF"
         />
-      </motion.div>
+      </Slide>
 
       <div className={styles.links}></div>
     </div>

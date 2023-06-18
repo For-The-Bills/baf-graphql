@@ -7,6 +7,8 @@
   flex-direction: row;
   height: $body_height;
   max-height: $body_height;
+  overflow-y: hidden;
+  overflow-x: hidden;
 }
 
 .section {

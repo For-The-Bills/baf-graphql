@@ -45,11 +45,13 @@
   font-weight: 600;
   color: $dark_grey;
   text-decoration: none;
-  padding: 0.1rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .activeLinkButton{
-  background-color: $green;
-  color: $white;
+  color: $green;
   transition: .3s;
+  text-decoration: underline;
 }

@@ -9,7 +9,7 @@ import "./index.scss"
 import { persistor, store } from "./redux/store"
 import reportWebVitals from "./reportWebVitals"
 import ViewManager from "./ViewManager"
-
+import { BrowserRouter } from 'react-router-dom';
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import variables from "./assets/variables.scss"
 import Navbar from "./components/Navbar/Navbar"
@@ -84,17 +84,16 @@ const theme = createTheme({
 const container = document.getElementById("root")
 const root = createRoot(container)
 
-export const history = createBrowserHistory()
 
 root.render(
   <ThemeProvider theme={theme}>
     <Provider store={store}>
-      <Router history={history}>
-        <Navbar history={history}/>
+      <BrowserRouter>
+        <Navbar/>
         <div id="SXWrapper" className="content">
           <ViewManager />
         </div>
-      </Router>
+      </BrowserRouter>
     </Provider>
   </ThemeProvider>
 )

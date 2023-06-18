@@ -4,7 +4,8 @@
   height: $navbar_height;
   display: flex;
   background-color: $light_gray;
-
+  justify-content: space-between;
+  align-items: center;
   -webkit-box-shadow: 0px 10px 14px -12px rgba(0, 0, 0, 1);
   -moz-box-shadow: 0px 10px 14px -12px rgba(0, 0, 0, 1);
   box-shadow: 0px 10px 34px -16px rgba(0, 0, 0, 1);
@@ -20,12 +21,35 @@
   }
 }
 
+.left{
+  display: flex;
+}
+.right{
+  display: flex;
+  padding-right: 2rem;
+}
+
+.links{
+  display: flex;
+  gap: 3rem;
+
+}
+
+.linkName{
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
 .linkButton{
   font-size: 2rem;
   font-weight: 600;
   color: $dark_grey;
+  text-decoration: none;
+  padding: 0.1rem 0.5rem;
 }
 
 .activeLinkButton{
-  color: $green !important;
+  background-color: $green;
+  color: $white;
+  transition: .3s;
 }

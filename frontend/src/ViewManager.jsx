@@ -56,4 +56,4 @@ class ViewManager extends Component {
   }
 }
 
-export default withRouter(connect()(ViewManager))
+export default ViewManager

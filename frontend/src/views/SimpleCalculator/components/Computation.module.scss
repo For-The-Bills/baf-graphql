@@ -50,7 +50,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 0rem 0rem 0rem 0rem;
+    border-radius: 1rem 1rem 0rem 0rem;
   }
 
   .sectionTitleText {
@@ -85,6 +85,7 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      border: 2px solid $dark_green;
     }
 
     .totalBafBox {
@@ -123,6 +124,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      border-top: 2px solid $green;
 
       .bafInfo {
         margin: 0px;

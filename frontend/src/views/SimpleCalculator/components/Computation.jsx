@@ -370,8 +370,8 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
           <PanelButton
             label={"Porady dla mieszkańca"}
             icon={<PersonRoundedIcon style={{ fontSize: 40 }} />}
-            width={150}
-            height={150}
+            width={110}
+            height={110}
             onClick={() => console.log("Funkcjonalność nieobecna w prototypie")}
           />
           <div className={styles.totalBafContainer}>
@@ -403,8 +403,8 @@ const Computation = ({ sugIndicatorValue, handleHelpChange }) => {
           <PanelButton
             label={"Porady dla projektanta"}
             icon={<ArchitectureRoundedIcon style={{ fontSize: 40 }} />}
-            width={150}
-            height={150}
+            width={110}
+            height={110}
             onClick={() => handleHelpChange("porady dla projektanta")}
           />
         </div>

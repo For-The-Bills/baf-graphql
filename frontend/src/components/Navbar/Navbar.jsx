@@ -8,8 +8,6 @@ import {
   useScroll,
 } from "framer-motion"
 import { Link } from "react-router-dom"
-import classNames from "classnames"
-import { Typography } from "@mui/material"
 import { connect } from "react-redux"
 import { Slide } from "react-awesome-reveal"
 

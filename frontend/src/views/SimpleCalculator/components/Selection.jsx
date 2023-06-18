@@ -8,6 +8,7 @@ import {
   Select,
   IconButton,
   Tooltip,
+  Button,
 } from "@mui/material"
 import FormControl from "@mui/material/FormControl"
 import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded"
@@ -26,20 +27,24 @@ function Selection({
 }) {
   return (
     <div className={styles.centerBox}>
-      <Slide direction="left" triggerOnce={true}>
-        <div className={styles.sectionTitle}>
-          <p className={styles.sectionTitleText}>Konfiguracja</p>
-          <Tooltip title="Wyświetl pomoc">
-            <IconButton
-              tooltip="Wyświetl pomoc"
-              onClick={() => {
-                handleHelpChange("konfiguracja")
-              }}
-            >
-              <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
-            </IconButton>
-          </Tooltip>
-        </div>
+      <div className={styles.sectionTitle}>
+        <p className={styles.sectionTitleText}>Konfiguracja</p>
+        <Tooltip title="Wyświetl pomoc">
+          <IconButton
+            tooltip="Wyświetl pomoc"
+            onClick={() => {
+              handleHelpChange("konfiguracja")
+            }}
+          >
+            <HelpIcon style={{ fill: "white", fontSize: 32 }}></HelpIcon>
+          </IconButton>
+        </Tooltip>
+      </div>
+      <Slide
+        direction="left"
+        triggerOnce={true}
+        className={styles.sectionContent}
+      >
         <div className={styles.selectionWrapper}>
           <div className={styles.selectionContainer}>
             <div className={styles.typeOfBuildingSelect}>
@@ -99,6 +104,18 @@ function Selection({
             <p>Wymagana wartość BAF:</p>
             <p className={styles.bafIndicator}>{sugIndicatorValue}</p>
           </div>
+        </div>
+        <div className={styles.sectionButtons}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              console.log(
+                "Eksport do CSV. Funkcjonalność niedostępna w prototypie"
+              )
+            }}
+          >
+            Eksportuj do csv
+          </Button>
         </div>
       </Slide>
     </div>

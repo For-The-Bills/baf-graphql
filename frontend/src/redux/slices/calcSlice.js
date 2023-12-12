@@ -1,20 +1,33 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import API from "../../API/apiService";
-
+import apollo from "../../API/apollo-client";
 import { emmitError, emmitSuccess } from "../../utils/ToastEmmiter";
-import LatLon from 'geodesy/latlon-spherical';
+import LatLon from "geodesy/latlon-spherical";
+import {
+  GQL_GET_COORDINATES_BY_ADDRESS,
+  GQL_GET_PARCEL_BY_COORDINATES,
+  GQL_GET_PARCEL_SHAPE,
+} from "../../queries/cartography.queries";
 
 export const getParcelByCoordinates = createAsyncThunk(
   "calc/getParcelByCoordinates",
   async ({ x, y }, { rejectWithValue }) => {
-    return await API.get(
-      `/location/by_coordinates?lat=${y}&lng=${x}&sourceCRS=EPSG4326&targetCRS=EPSG2180`
-    )
+    return await apollo
+      .query({
+        query: GQL_GET_PARCEL_BY_COORDINATES,
+        variables: {
+          getParcelInput: {
+            latitude: `${y}`,
+            longitude: `${x}`,
+          },
+        },
+      })
       .then((res) => {
         console.log(res);
-        return res.data;
+        return res.data.getParcelByCoordinates;
       })
       .catch((err) => {
+        console.log(err);
         throw rejectWithValue(err.response);
       });
   }
@@ -23,12 +36,30 @@ export const getParcelByCoordinates = createAsyncThunk(
 export const getParcelShape = createAsyncThunk(
   "calc/getParcelShape",
   async ({ x, y }, { rejectWithValue }) => {
-    return await API.get(`/location/shape?lat=${y}&lng=${x}`)
+    // return await API.get(`/location/shape?lat=${y}&lng=${x}`)
+    //   .then((res) => {
+    //     console.log(res);
+    //     return res.data;
+    //   })
+    //   .catch((err) => {
+    //     throw rejectWithValue(err.response);
+    //   });
+    return await apollo
+      .query({
+        query: GQL_GET_PARCEL_SHAPE,
+        variables: {
+          getParcelShapeInput: {
+            latitude: `${y}`,
+            longitude: `${x}`,
+          },
+        },
+      })
       .then((res) => {
         console.log(res);
-        return res.data;
+        return res.data.getParcelShape;
       })
       .catch((err) => {
+        console.log(err);
         throw rejectWithValue(err.response);
       });
   }
@@ -36,30 +67,50 @@ export const getParcelShape = createAsyncThunk(
 
 export const getParcelShapeByName = createAsyncThunk(
   "calc/getParcelShapeByName",
-  async({region, number}, { rejectWithValue }) => {
-    return await API.get(`/location/shape?parcelRegion=${region}&parcelNumber=${number}`)
+  async ({ region, number }, { rejectWithValue }) => {
+    return await apollo
+      .query({
+        query: GQL_GET_PARCEL_SHAPE,
+        variables: {
+          getParcelShapeInput: {
+            parcelNumber: `${number}`,
+            parcelRegion: `${region}`,
+          },
+        },
+      })
       .then((res) => {
         console.log(res);
-        return res.data;
+        return res.data.getParcelShape;
       })
       .catch((err) => {
+        console.log(err);
         throw rejectWithValue(err.response);
       });
-  })
+  }
+);
 
-  export const getAddressCoordinates = createAsyncThunk(
-    "calc/getAddressCoordinates",
-    async({address}, { rejectWithValue }) => {
-      return await API.get(`/location/by_address?address=${address}`)
-        .then((res) => {
-          console.log(res);
-          return res.data;
-        })
-        .catch((err) => {
-          throw rejectWithValue(err.response);
-        });
-    })
-  
+export const getAddressCoordinates = createAsyncThunk(
+  "calc/getAddressCoordinates",
+  async ({ address }, { rejectWithValue }) => {
+    return await apollo
+      .query({
+        query: GQL_GET_COORDINATES_BY_ADDRESS,
+        variables: {
+          getCoordsByAddressInput: {
+            address: `${address}`,
+          },
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        return res.data.getCoordinatesByAddress;
+      })
+      .catch((err) => {
+        console.log(err);
+        throw rejectWithValue(err.response);
+      });
+  }
+);
 
 function calculateArea(coordinates) {
   const latLons = coordinates.map(([lat, lon]) => new LatLon(lat, lon));
@@ -82,82 +133,82 @@ export const calcSlice = createSlice({
     mapPositionCenter: [50.321484, 19.194942],
     indicators: {
       mieszkaniowa: 0.6,
-    "przestrzenie publiczne": 0.6,
-    usługowa: 0.3,
-    produkcyjna: 0.3,
-    "usługowo-produkcyjna": 0.3,
-    "usługowo-mieszkaniowa": 0.5,
-    "składy i magazyny": 0.3,
+      "przestrzenie publiczne": 0.6,
+      usługowa: 0.3,
+      produkcyjna: 0.3,
+      "usługowo-produkcyjna": 0.3,
+      "usługowo-mieszkaniowa": 0.5,
+      "składy i magazyny": 0.3,
     },
     surfaces: {
       "powierzchnie szczelne (nieprzepuszczalne)": {
         name: "powierzchnie szczelne (nieprzepuszczalne)",
         value: 0,
-        color: "#6e6e6e"
+        color: "#6e6e6e",
       },
       "powierzchnie półprzepuszczalne": {
         name: "powierzchnie półprzepuszczalne",
         value: 0.5,
-        color: "#6a916f"
+        color: "#6a916f",
       },
       "powierzchnie perforowane": {
         name: "powierzchnie perforowane",
         value: 0.3,
-        color: "#8be0d5"
+        color: "#8be0d5",
       },
       "powierzchnie przepuszczalne": {
         name: "powierzchnie przepuszczalne",
         value: 1,
-        color: "#cd8df7"
+        color: "#cd8df7",
       },
       zabudowa: {
         name: "zabudowa",
         value: 0,
-        color: "#f59520"
+        color: "#f59520",
       },
       "drzewo (pow. odkryta pod koroną, m2)": {
         name: "drzewo (pow. odkryta pod koroną, m2)",
         value: 1,
-        color: "#20f52e"
+        color: "#20f52e",
       },
       "krzew (pow. odkryta pod krzewem, m2)": {
         name: "krzew (pow. odkryta pod krzewem, m2)",
         value: 0.7,
-        color: "#3520f5"
+        color: "#3520f5",
       },
       "łąka kwietna": {
         name: "łąka kwietna",
         value: 0.7,
-        color: "#f520aa"
+        color: "#f520aa",
       },
       "trawa (murawa)": {
         name: "trawa (murawa)",
         value: 0.3,
-        color: "#b1f520"
+        color: "#b1f520",
       },
       "dachy zielone": {
         name: "dachy zielone",
         value: 0.7,
-        color: "#20d5f5"
+        color: "#20d5f5",
       },
       "ściany zielone": {
         name: "ściany zielone",
         value: 0.5,
-        color: "#f1f520"
+        color: "#f1f520",
       },
       "rośliny pnące (na 1m2 powierzchni)": {
         name: "rośliny pnące (na 1m2 powierzchni)",
         value: 0.3,
-        color: "#00ad0c"
+        color: "#00ad0c",
       },
       "ogród deszczowy (na 1m2)": {
         name: "ogród deszczowy (na 1m2)",
         value: 0.7,
-        color: "#0600ad"
-      }
+        color: "#0600ad",
+      },
     },
     currentlySelectedLayerIndex: -1,
-    zoomToCoords: [0,0]
+    zoomToCoords: [0, 0],
   },
   reducers: {
     clearParcelData: (state) => {
@@ -179,40 +230,50 @@ export const calcSlice = createSlice({
       state.additionModal = true;
     },
     addNewLayer: (state, action) => {
-
       state.currentlySelectedLayerIndex = state.editorData.layers.length;
       state.editorData.layers.push(action.payload);
       state.additionModal = false;
     },
     addNewMarker: (state, action) => {
-      state.editorData.layers[state.currentlySelectedLayerIndex].polygon.push(action.payload);
+      state.editorData.layers[state.currentlySelectedLayerIndex].polygon.push(
+        action.payload
+      );
     },
     completeLayer: (state) => {
-      if(state.editorData.layers[state.currentlySelectedLayerIndex].polygon.length < 3) {
-        emmitError('Za mało punktów na warstwie');
+      if (
+        state.editorData.layers[state.currentlySelectedLayerIndex].polygon
+          .length < 3
+      ) {
+        emmitError("Za mało punktów na warstwie");
         return;
       }
-      const poly = current(state.editorData.layers[state.currentlySelectedLayerIndex].polygon);
-      console.log(poly)
-      const a = calculateArea([...poly, poly[0]])
-      console.log(a)
-      state.editorData.layers[state.currentlySelectedLayerIndex].area = parseFloat(a.toFixed(2));
+      const poly = current(
+        state.editorData.layers[state.currentlySelectedLayerIndex].polygon
+      );
+      console.log(poly);
+      const a = calculateArea([...poly, poly[0]]);
+      console.log(a);
+      state.editorData.layers[state.currentlySelectedLayerIndex].area =
+        parseFloat(a.toFixed(2));
       state.currentlySelectedLayerIndex = -1;
     },
     removeLayer: (state, action) => {
-      console.log(action.payload)
-      state.editorData.layers = state.editorData.layers.filter((_, index) => index != action.payload);
+      console.log(action.payload);
+      state.editorData.layers = state.editorData.layers.filter(
+        (_, index) => index != action.payload
+      );
       state.currentlySelectedLayerIndex = -1;
     },
     redoMarker: (state) => {
       state.editorData.layers[state.currentlySelectedLayerIndex].polygon.pop();
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getParcelByCoordinates.pending, (state, action) => {
       state.parcelLoading = true;
     });
     builder.addCase(getParcelByCoordinates.fulfilled, (state, action) => {
+      console.log(action.payload);
       state.parcelLoading = false;
       state.parcelData = action.payload;
       state.infoModal = true;
@@ -230,11 +291,14 @@ export const calcSlice = createSlice({
 
     builder.addCase(getParcelShape.fulfilled, (state, action) => {
       state.editorLoading = false;
-      state.editorData = {...action.payload, layers:[]};
+      state.editorData = { ...action.payload, layers: [] };
       state.editorData.area = calculateArea(action.payload.coords);
       state.parcelSelected = true;
       state.infoModal = false;
-      state.zoomToCoords = action.payload.polygon_center.reverse();
+      state.zoomToCoords = [
+        action.payload.polygon_center[1],
+        action.payload.polygon_center[0],
+      ];
     });
 
     builder.addCase(getParcelShape.rejected, (state, action) => {
@@ -245,14 +309,18 @@ export const calcSlice = createSlice({
       emmitError(action.payload.data.error);
     });
 
-
     builder.addCase(getParcelShapeByName.pending, (state, action) => {
       state.parcelLoading = true;
     });
 
     builder.addCase(getParcelShapeByName.fulfilled, (state, action) => {
       state.parcelLoading = false;
-      state.editorData = {coords: action.payload.coords, polygon_center: action.payload.polygon_center, max_bounds: action.payload.max_bounds, layers:[]};
+      state.editorData = {
+        coords: action.payload.coords,
+        polygon_center: action.payload.polygon_center,
+        max_bounds: action.payload.max_bounds,
+        layers: [],
+      };
       state.editorData.area = calculateArea(action.payload.coords);
       state.parcelData = {
         parcelNumber: action.payload.parcelNumber,
@@ -261,7 +329,7 @@ export const calcSlice = createSlice({
       state.parcelSelected = true;
       state.infoModal = false;
       state.zoomToCoords = action.payload.polygon_center.reverse();
-    })
+    });
 
     builder.addCase(getParcelShapeByName.rejected, (state, action) => {
       state.parcelLoading = false;
@@ -269,22 +337,21 @@ export const calcSlice = createSlice({
       state.parcelSelected = false;
 
       emmitError(action.payload.data.error);
-    })
+    });
 
     builder.addCase(getAddressCoordinates.pending, (state, action) => {
       state.parcelLoading = true;
-    })
+    });
 
     builder.addCase(getAddressCoordinates.fulfilled, (state, action) => {
       state.parcelLoading = false;
-      state.zoomToCoords = action.payload;
-    })
+      state.zoomToCoords = [action.payload.x, action.payload.y]
+    });
 
     builder.addCase(getAddressCoordinates.rejected, (state, action) => {
       state.parcelLoading = false;
       emmitError(action.payload.data.error);
-    })
-
+    });
   },
 });
 
@@ -299,7 +366,7 @@ export const {
   addNewMarker,
   completeLayer,
   removeLayer,
-  redoMarker
+  redoMarker,
 } = actions;
 
 export const selectParcelData = (state) => state.calc.parcelData;
@@ -311,7 +378,8 @@ export const selectParcelSelected = (state) => state.calc.parcelSelected;
 export const selectMapPositionCenter = (state) => state.calc.mapPositionCenter;
 export const selectAdditionModalState = (state) => state.calc.additionModal;
 export const selectSurfaces = (state) => state.calc.surfaces;
-export const selectCurrentlySelectedLayerIndex = (state) => state.calc.currentlySelectedLayerIndex;
+export const selectCurrentlySelectedLayerIndex = (state) =>
+  state.calc.currentlySelectedLayerIndex;
 export const selectIndicators = (state) => state.calc.indicators;
 export const selectZoomToCoords = (state) => state.calc.zoomToCoords;
 

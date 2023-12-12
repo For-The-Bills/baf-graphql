@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import Cookies from "js-cookie";
 import storage from "redux-persist/lib/storage";
-import { persistReducer, persistStore } from "redux-persist";
+import { persistStore } from "redux-persist";
 import calcReducer from "./slices/calcSlice";
 
 const persistConfig = {

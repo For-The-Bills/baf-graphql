@@ -1,16 +1,15 @@
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import API from "../../API/apiService";
-import apollo from "../../API/apollo-client";
-import { emmitError, emmitSuccess } from "../../utils/ToastEmmiter";
-import LatLon from "geodesy/latlon-spherical";
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import apollo from '../../API/apollo-client';
+import { emmitError } from '../../utils/ToastEmmiter';
+import LatLon from 'geodesy/latlon-spherical';
 import {
   GQL_GET_COORDINATES_BY_ADDRESS,
   GQL_GET_PARCEL_BY_COORDINATES,
   GQL_GET_PARCEL_SHAPE,
-} from "../../queries/cartography.queries";
+} from '../../queries/cartography.queries';
 
 export const getParcelByCoordinates = createAsyncThunk(
-  "calc/getParcelByCoordinates",
+  'calc/getParcelByCoordinates',
   async ({ x, y }, { rejectWithValue }) => {
     return await apollo
       .query({
@@ -30,11 +29,11 @@ export const getParcelByCoordinates = createAsyncThunk(
         console.log(err);
         throw rejectWithValue(err.response);
       });
-  }
+  },
 );
 
 export const getParcelShape = createAsyncThunk(
-  "calc/getParcelShape",
+  'calc/getParcelShape',
   async ({ x, y }, { rejectWithValue }) => {
     // return await API.get(`/location/shape?lat=${y}&lng=${x}`)
     //   .then((res) => {
@@ -62,11 +61,11 @@ export const getParcelShape = createAsyncThunk(
         console.log(err);
         throw rejectWithValue(err.response);
       });
-  }
+  },
 );
 
 export const getParcelShapeByName = createAsyncThunk(
-  "calc/getParcelShapeByName",
+  'calc/getParcelShapeByName',
   async ({ region, number }, { rejectWithValue }) => {
     return await apollo
       .query({
@@ -86,11 +85,11 @@ export const getParcelShapeByName = createAsyncThunk(
         console.log(err);
         throw rejectWithValue(err.response);
       });
-  }
+  },
 );
 
 export const getAddressCoordinates = createAsyncThunk(
-  "calc/getAddressCoordinates",
+  'calc/getAddressCoordinates',
   async ({ address }, { rejectWithValue }) => {
     return await apollo
       .query({
@@ -109,7 +108,7 @@ export const getAddressCoordinates = createAsyncThunk(
         console.log(err);
         throw rejectWithValue(err.response);
       });
-  }
+  },
 );
 
 function calculateArea(coordinates) {
@@ -121,7 +120,7 @@ function calculateArea(coordinates) {
 }
 
 export const calcSlice = createSlice({
-  name: "logs",
+  name: 'logs',
   initialState: {
     parcelData: {},
     parcelSelected: false,
@@ -133,78 +132,78 @@ export const calcSlice = createSlice({
     mapPositionCenter: [50.321484, 19.194942],
     indicators: {
       mieszkaniowa: 0.6,
-      "przestrzenie publiczne": 0.6,
+      'przestrzenie publiczne': 0.6,
       usługowa: 0.3,
       produkcyjna: 0.3,
-      "usługowo-produkcyjna": 0.3,
-      "usługowo-mieszkaniowa": 0.5,
-      "składy i magazyny": 0.3,
+      'usługowo-produkcyjna': 0.3,
+      'usługowo-mieszkaniowa': 0.5,
+      'składy i magazyny': 0.3,
     },
     surfaces: {
-      "powierzchnie szczelne (nieprzepuszczalne)": {
-        name: "powierzchnie szczelne (nieprzepuszczalne)",
+      'powierzchnie szczelne (nieprzepuszczalne)': {
+        name: 'powierzchnie szczelne (nieprzepuszczalne)',
         value: 0,
-        color: "#6e6e6e",
+        color: '#6e6e6e',
       },
-      "powierzchnie półprzepuszczalne": {
-        name: "powierzchnie półprzepuszczalne",
+      'powierzchnie półprzepuszczalne': {
+        name: 'powierzchnie półprzepuszczalne',
         value: 0.5,
-        color: "#6a916f",
+        color: '#6a916f',
       },
-      "powierzchnie perforowane": {
-        name: "powierzchnie perforowane",
+      'powierzchnie perforowane': {
+        name: 'powierzchnie perforowane',
         value: 0.3,
-        color: "#8be0d5",
+        color: '#8be0d5',
       },
-      "powierzchnie przepuszczalne": {
-        name: "powierzchnie przepuszczalne",
+      'powierzchnie przepuszczalne': {
+        name: 'powierzchnie przepuszczalne',
         value: 1,
-        color: "#cd8df7",
+        color: '#cd8df7',
       },
       zabudowa: {
-        name: "zabudowa",
+        name: 'zabudowa',
         value: 0,
-        color: "#f59520",
+        color: '#f59520',
       },
-      "drzewo (pow. odkryta pod koroną, m2)": {
-        name: "drzewo (pow. odkryta pod koroną, m2)",
+      'drzewo (pow. odkryta pod koroną, m2)': {
+        name: 'drzewo (pow. odkryta pod koroną, m2)',
         value: 1,
-        color: "#20f52e",
+        color: '#20f52e',
       },
-      "krzew (pow. odkryta pod krzewem, m2)": {
-        name: "krzew (pow. odkryta pod krzewem, m2)",
+      'krzew (pow. odkryta pod krzewem, m2)': {
+        name: 'krzew (pow. odkryta pod krzewem, m2)',
         value: 0.7,
-        color: "#3520f5",
+        color: '#3520f5',
       },
-      "łąka kwietna": {
-        name: "łąka kwietna",
+      'łąka kwietna': {
+        name: 'łąka kwietna',
         value: 0.7,
-        color: "#f520aa",
+        color: '#f520aa',
       },
-      "trawa (murawa)": {
-        name: "trawa (murawa)",
+      'trawa (murawa)': {
+        name: 'trawa (murawa)',
         value: 0.3,
-        color: "#b1f520",
+        color: '#b1f520',
       },
-      "dachy zielone": {
-        name: "dachy zielone",
+      'dachy zielone': {
+        name: 'dachy zielone',
         value: 0.7,
-        color: "#20d5f5",
+        color: '#20d5f5',
       },
-      "ściany zielone": {
-        name: "ściany zielone",
+      'ściany zielone': {
+        name: 'ściany zielone',
         value: 0.5,
-        color: "#f1f520",
+        color: '#f1f520',
       },
-      "rośliny pnące (na 1m2 powierzchni)": {
-        name: "rośliny pnące (na 1m2 powierzchni)",
+      'rośliny pnące (na 1m2 powierzchni)': {
+        name: 'rośliny pnące (na 1m2 powierzchni)',
         value: 0.3,
-        color: "#00ad0c",
+        color: '#00ad0c',
       },
-      "ogród deszczowy (na 1m2)": {
-        name: "ogród deszczowy (na 1m2)",
+      'ogród deszczowy (na 1m2)': {
+        name: 'ogród deszczowy (na 1m2)',
         value: 0.7,
-        color: "#0600ad",
+        color: '#0600ad',
       },
     },
     currentlySelectedLayerIndex: -1,
@@ -236,7 +235,7 @@ export const calcSlice = createSlice({
     },
     addNewMarker: (state, action) => {
       state.editorData.layers[state.currentlySelectedLayerIndex].polygon.push(
-        action.payload
+        action.payload,
       );
     },
     completeLayer: (state) => {
@@ -244,11 +243,11 @@ export const calcSlice = createSlice({
         state.editorData.layers[state.currentlySelectedLayerIndex].polygon
           .length < 3
       ) {
-        emmitError("Za mało punktów na warstwie");
+        emmitError('Za mało punktów na warstwie');
         return;
       }
       const poly = current(
-        state.editorData.layers[state.currentlySelectedLayerIndex].polygon
+        state.editorData.layers[state.currentlySelectedLayerIndex].polygon,
       );
       console.log(poly);
       const a = calculateArea([...poly, poly[0]]);
@@ -260,7 +259,7 @@ export const calcSlice = createSlice({
     removeLayer: (state, action) => {
       console.log(action.payload);
       state.editorData.layers = state.editorData.layers.filter(
-        (_, index) => index != action.payload
+        (_, index) => index != action.payload,
       );
       state.currentlySelectedLayerIndex = -1;
     },
@@ -345,7 +344,7 @@ export const calcSlice = createSlice({
 
     builder.addCase(getAddressCoordinates.fulfilled, (state, action) => {
       state.parcelLoading = false;
-      state.zoomToCoords = [action.payload.x, action.payload.y]
+      state.zoomToCoords = [action.payload.x, action.payload.y];
     });
 
     builder.addCase(getAddressCoordinates.rejected, (state, action) => {
